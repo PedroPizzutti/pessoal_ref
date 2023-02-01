@@ -1,6 +1,6 @@
 class HomeController {
   async index(req, res) {
-    res.json('Api no ar!');
+    res.json('Api rodando sem erros...');
   }
 }
 
