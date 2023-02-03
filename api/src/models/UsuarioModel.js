@@ -40,7 +40,7 @@ export default class UsuarioModel extends Model {
           },
         },
       },
-    }, { sequelize });
+    }, { sequelize, modelName: 'usuarios' });
 
     this.addHook('beforeSave', async (usuario) => {
       if (usuario.senha) {
