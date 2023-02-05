@@ -77,6 +77,6 @@ export default class LivroModel extends Model {
   }
 
   static associate(models) {
-    this.belongsTo(models.Usuario, { foreignKey: 'id_usuario' });
+    this.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
   }
 }
