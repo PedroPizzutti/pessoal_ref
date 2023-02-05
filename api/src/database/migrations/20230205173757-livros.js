@@ -36,6 +36,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
+      citacao: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
