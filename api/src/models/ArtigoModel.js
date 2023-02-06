@@ -92,7 +92,7 @@ export default class ArtigoModel extends Model {
       },
       {
         sequelize,
-        nomeModel: 'artigos',
+        modelName: 'artigos',
       },
     );
     return this;
