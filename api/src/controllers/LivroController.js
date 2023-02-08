@@ -8,7 +8,7 @@ class LivroController {
     } catch (e) {
       res.status(400)
         .json({
-          erros: e.errors.map((error) => error.message),
+          erros: e.errors?.map((error) => error.message),
         });
     }
   }

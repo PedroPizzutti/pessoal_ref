@@ -4,12 +4,57 @@ class UsuarioController {
   async store(req, res) {
     try {
       const novoUsuario = await UsuarioModel.create(req.body);
-      res.json(novoUsuario);
+      const { id, nome, email } = novoUsuario;
+
+      res.status(201).json({ id, nome, email });
     } catch (e) {
       res.status(400)
         .json({
           erros: e.errors.map((error) => error.message),
         });
+    }
+  }
+
+  async update(req, res) {
+    try {
+      console.log(req.body);
+      const usuario = await UsuarioModel.findByPk(req.usuarioId);
+
+      if (!usuario) {
+        return res.status(400).json({
+          erros: ['Usuário não encontrado...'],
+        });
+      }
+
+      const novosDados = await usuario.update(req.body);
+
+      const { id, nome, email } = novosDados;
+
+      return res.status(200).json({ id, nome, email });
+    } catch (e) {
+      return res.status(400).json({
+        erros: e.errors?.map((err) => err.message),
+      });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const usuario = await UsuarioModel.findByPk(req.usuarioId);
+
+      if (!usuario) {
+        return res.status(400).json({
+          erros: ['Usuário não encontrado...'],
+        });
+      }
+
+      await usuario.destroy();
+
+      return res.status(200).json(null);
+    } catch (e) {
+      return res.status(400).json({
+        erros: e.errors?.map((err) => err.message),
+      });
     }
   }
 }

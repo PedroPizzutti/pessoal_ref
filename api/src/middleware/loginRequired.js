@@ -13,10 +13,10 @@ export default async (req, res, next) => {
 
   try {
     const dadosToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    const { idToken, emailToken } = dadosToken;
+    const { id, email } = dadosToken;
 
-    req.usuarioId = idToken;
-    req.usuarioEmail = emailToken;
+    req.usuarioId = id;
+    req.usuarioEmail = email;
 
     return next();
   } catch (e) {
