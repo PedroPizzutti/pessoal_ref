@@ -15,8 +15,8 @@ export default async (req, res, next) => {
     const dadosToken = jwt.verify(token, process.env.TOKEN_SECRET);
     const { id, email } = dadosToken;
 
-    req.usuarioId = id;
-    req.usuarioEmail = email;
+    req.idUsuario = id;
+    req.emailUsuario = email;
 
     return next();
   } catch (e) {
