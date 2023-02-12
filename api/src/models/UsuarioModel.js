@@ -55,7 +55,26 @@ export default class UsuarioModel extends Model {
     return this;
   }
 
-  passwordIsValid(senha) {
+  static async localizaUsuario(idUsuario) {
+    const usuario = await this.findByPk(idUsuario);
+    return usuario;
+  }
+
+  static async criaUsuario(dadosUsuario) {
+    const novoUsuario = await this.create(dadosUsuario);
+    return novoUsuario;
+  }
+
+  static async atualizaUsuario(usuario, dadosUsuario) {
+    const usuarioAtualizado = await usuario.update(dadosUsuario);
+    return usuarioAtualizado;
+  }
+
+  static async deletaUsuario(usuario) {
+    await usuario.destroy();
+  }
+
+  validaSenha(senha) {
     return bcryptjs.compare(senha, this.senha_hash);
   }
 }

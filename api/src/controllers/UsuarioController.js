@@ -3,9 +3,8 @@ import UsuarioModel from '../models/UsuarioModel';
 class UsuarioController {
   async store(req, res) {
     try {
-      const novoUsuario = await UsuarioModel.create(req.body);
+      const novoUsuario = await UsuarioModel.criaUsuario(req.body);
       const { id, nome, email } = novoUsuario;
-
       res.status(201).json({ id, nome, email });
     } catch (e) {
       res.status(400)
@@ -17,8 +16,7 @@ class UsuarioController {
 
   async update(req, res) {
     try {
-      console.log(req.body);
-      const usuario = await UsuarioModel.findByPk(req.idUsuario);
+      const usuario = await UsuarioModel.localizaUsuario(req.idUsuario);
 
       if (!usuario) {
         return res.status(400).json({
@@ -26,9 +24,9 @@ class UsuarioController {
         });
       }
 
-      const novosDados = await usuario.update(req.body);
+      const usuarioAtualizado = await UsuarioModel.atualizaUsuario(usuario, req.body);
 
-      const { id, nome, email } = novosDados;
+      const { id, nome, email } = usuarioAtualizado;
 
       return res.status(200).json({ id, nome, email });
     } catch (e) {
@@ -40,7 +38,7 @@ class UsuarioController {
 
   async delete(req, res) {
     try {
-      const usuario = await UsuarioModel.findByPk(req.idUsuario);
+      const usuario = await UsuarioModel.localizaUsuario(req.idUsuario);
 
       if (!usuario) {
         return res.status(400).json({
@@ -48,7 +46,7 @@ class UsuarioController {
         });
       }
 
-      await usuario.destroy();
+      UsuarioModel.deletaUsuario(usuario);
 
       return res.status(200).json(null);
     } catch (e) {

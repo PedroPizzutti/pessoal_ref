@@ -19,7 +19,7 @@ class TokenController {
       });
     }
 
-    if (!(await usuario.passwordIsValid(senha))) {
+    if (!(await usuario.validaSenha(senha))) {
       return res.status(401).json({
         erros: ['Senha inválida!'],
       });

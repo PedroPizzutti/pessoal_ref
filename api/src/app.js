@@ -3,13 +3,13 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import './src/database';
+import './database';
 
-import homeRoutes from './src/routes/homeRoutes';
-import usuarioRoutes from './src/routes/usuarioRoutes';
-import livroRoutes from './src/routes/livroRoutes';
-import artigoRoutes from './src/routes/artigoRoutes';
-import tokenRoutes from './src/routes/tokenRoutes';
+import homeRoutes from './routes/homeRoutes';
+import usuarioRoutes from './routes/usuarioRoutes';
+import livroRoutes from './routes/livroRoutes';
+import artigoRoutes from './routes/artigoRoutes';
+import tokenRoutes from './routes/tokenRoutes';
 
 class App {
   constructor() {
