@@ -5,9 +5,7 @@ class LivroController {
     try {
       const livro = req.body;
       livro.id_usuario = req.idUsuario;
-
       const livroCriado = await LivroModel.create(livro);
-
       res.json(livroCriado);
     } catch (e) {
       res.status(400)
@@ -18,15 +16,23 @@ class LivroController {
   }
 
   async index(req, res) {
-    const livros = await LivroModel.findAll({
-      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
-      where: {
-        id_usuario: req.idUsuario,
-      },
-      order: ['autor', 'titulo'],
-    });
+    const livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
+    res.json(livrosEncontrados);
+  }
 
-    res.json(livros);
+  async show(req, res) {
+    const { autor, titulo } = req.query;
+    let livrosEncontrados;
+
+    if (autor && titulo) {
+      livrosEncontrados = await LivroModel.buscaLivrosPorAutorTitulo(req.idUsuario, autor, titulo);
+    } else if (autor && !titulo) {
+      livrosEncontrados = await LivroModel.buscaLivrosPorAutor(req.idUsuario, autor);
+    } else if (!autor && titulo) {
+      livrosEncontrados = await LivroModel.buscaLivrosPorTitulo(req.idUsuario, titulo);
+    }
+
+    res.json(livrosEncontrados);
   }
 }
 

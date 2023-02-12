@@ -6,5 +6,6 @@ const router = new Router();
 
 router.post('/', loginRequired, livroController.store);
 router.get('/', loginRequired, livroController.index);
+router.get('/search', loginRequired, livroController.show);
 
 export default router;

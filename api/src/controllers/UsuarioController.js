@@ -18,7 +18,7 @@ class UsuarioController {
   async update(req, res) {
     try {
       console.log(req.body);
-      const usuario = await UsuarioModel.findByPk(req.id_usuario);
+      const usuario = await UsuarioModel.findByPk(req.idUsuario);
 
       if (!usuario) {
         return res.status(400).json({
@@ -40,7 +40,7 @@ class UsuarioController {
 
   async delete(req, res) {
     try {
-      const usuario = await UsuarioModel.findByPk(req.id_usuario);
+      const usuario = await UsuarioModel.findByPk(req.idUsuario);
 
       if (!usuario) {
         return res.status(400).json({

@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model, Op } from 'sequelize';
 
 export default class LivroModel extends Model {
   static init(sequelize) {
@@ -78,5 +78,72 @@ export default class LivroModel extends Model {
 
   static associate(models) {
     this.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
+  }
+
+  static async buscaLivrosUsuario(idUsuario) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      where: {
+        id_usuario: idUsuario,
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return livrosEncontrados;
+  }
+
+  static async buscaLivrosPorAutorTitulo(idUsuario, autor, titulo) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      where: {
+        id_usuario: idUsuario,
+        [Op.or]: [
+          {
+            autor: {
+              [Op.like]: `%${autor}%`,
+            },
+          },
+          {
+            titulo: {
+              [Op.like]: `%${titulo}%`,
+            },
+          },
+        ],
+
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return livrosEncontrados;
+  }
+
+  static async buscaLivrosPorAutor(idUsuario, autor) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      where: {
+        id_usuario: idUsuario,
+        autor: {
+          [Op.like]: `%${autor}%`,
+        },
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return livrosEncontrados;
+  }
+
+  static async buscaLivrosPorTitulo(idUsuario, titulo) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      where: {
+        id_usuario: idUsuario,
+        titulo: {
+          [Op.like]: `%${titulo}%`,
+        },
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return livrosEncontrados;
   }
 }
