@@ -3,9 +3,9 @@ import LivroModel from '../models/LivroModel';
 class LivroController {
   async store(req, res) {
     try {
-      const livro = req.body;
-      livro.id_usuario = req.idUsuario;
-      const livroCriado = await LivroModel.create(livro);
+      const dadosLivro = req.body;
+      dadosLivro.id_usuario = req.idUsuario;
+      const livroCriado = await LivroModel.criaLivro(dadosLivro);
       res.json(livroCriado);
     } catch (e) {
       res.status(400)
@@ -15,12 +15,17 @@ class LivroController {
     }
   }
 
+  async show(req, res) {
+    const livro = await LivroModel.localizaLivro(req.params.id);
+    return res.json(livro);
+  }
+
   async index(req, res) {
     const livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
     res.json(livrosEncontrados);
   }
 
-  async show(req, res) {
+  async filter(req, res) {
     const { autor, titulo } = req.query;
     let livrosEncontrados;
 

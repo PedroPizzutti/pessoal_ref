@@ -80,9 +80,19 @@ export default class LivroModel extends Model {
     this.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
   }
 
+  static async criaLivro(dadosLivro) {
+    const novoLivro = await this.create(dadosLivro);
+    return novoLivro;
+  }
+
+  static async localizaLivro(idLivro) {
+    const livroEncontrado = await this.findByPk(idLivro);
+    return livroEncontrado;
+  }
+
   static async buscaLivrosUsuario(idUsuario) {
     const livrosEncontrados = await this.findAll({
-      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
       },
@@ -94,7 +104,7 @@ export default class LivroModel extends Model {
 
   static async buscaLivrosPorAutorTitulo(idUsuario, autor, titulo) {
     const livrosEncontrados = await this.findAll({
-      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
         [Op.or]: [
@@ -119,7 +129,7 @@ export default class LivroModel extends Model {
 
   static async buscaLivrosPorAutor(idUsuario, autor) {
     const livrosEncontrados = await this.findAll({
-      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
         autor: {
@@ -134,7 +144,7 @@ export default class LivroModel extends Model {
 
   static async buscaLivrosPorTitulo(idUsuario, titulo) {
     const livrosEncontrados = await this.findAll({
-      attributes: ['id', 'autor', 'titulo', 'ano', 'localizacao', 'editora', 'citacao'],
+      attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
         titulo: {
