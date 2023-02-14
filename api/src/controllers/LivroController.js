@@ -15,9 +15,61 @@ class LivroController {
     }
   }
 
+  async update(req, res) {
+    try {
+      const idLivro = req.params.id;
+
+      console.log(req.params.id);
+
+      if (!idLivro) {
+        return res.status(400).json({
+          erros: ['Faltando ID...'],
+        });
+      }
+
+      const livro = await LivroModel.localizaLivro(idLivro);
+
+      if (!livro) {
+        return res.status(400).json({
+          erros: ['Livro não encontrado...'],
+        });
+      }
+
+      const livroAtualizado = await LivroModel.atualizaLivro(livro, req.body);
+
+      return res.json(livroAtualizado);
+    } catch (e) {
+      return res.status(400)
+        .json({
+          erros: e.errors?.map((error) => error.message),
+        });
+    }
+  }
+
   async show(req, res) {
-    const livro = await LivroModel.localizaLivro(req.params.id);
-    return res.json(livro);
+    try {
+      const idLivro = req.params.id;
+
+      if (!idLivro) {
+        return res.status(400).json({
+          erros: ['Faltando ID...'],
+        });
+      }
+
+      const livro = await LivroModel.localizaLivro(idLivro);
+
+      if (!livro) {
+        return res.status(400).json({
+          erros: ['Aluno não encontrado...'],
+        });
+      }
+
+      return res.json(livro);
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors?.map((erro) => erro.message),
+      });
+    }
   }
 
   async index(req, res) {
