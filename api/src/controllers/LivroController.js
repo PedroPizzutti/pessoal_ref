@@ -19,8 +19,6 @@ class LivroController {
     try {
       const idLivro = req.params.id;
 
-      console.log(req.params.id);
-
       if (!idLivro) {
         return res.status(400).json({
           erros: ['Faltando ID...'],
@@ -41,7 +39,36 @@ class LivroController {
     } catch (e) {
       return res.status(400)
         .json({
-          erros: e.errors?.map((error) => error.message),
+          erros: e.errors?.map((erro) => erro.message),
+        });
+    }
+  }
+
+  async delete(req, res) {
+    try {
+      const idLivro = req.params.id;
+
+      if (!idLivro) {
+        return res.status(400).json({
+          erros: ['Faltando ID...'],
+        });
+      }
+
+      const livro = await LivroModel.localizaLivro(idLivro);
+
+      if (!livro) {
+        return res.status(400).json({
+          erros: ['Livro não encontrado...'],
+        });
+      }
+
+      LivroModel.deletaLivro(livro);
+
+      return res.json(null);
+    } catch (e) {
+      return res.status(400)
+        .json({
+          erros: e.errors?.map((erro) => erro.message),
         });
     }
   }

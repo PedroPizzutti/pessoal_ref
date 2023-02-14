@@ -90,6 +90,10 @@ export default class LivroModel extends Model {
     return livroAtualizado;
   }
 
+  static async deletaLivro(livro) {
+    await livro.destroy();
+  }
+
   static async localizaLivro(idLivro) {
     const livroEncontrado = await this.findByPk(idLivro);
     return livroEncontrado;
