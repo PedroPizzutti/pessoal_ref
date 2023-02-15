@@ -101,4 +101,24 @@ export default class ArtigoModel extends Model {
   static associate(models) {
     this.belongsTo(models.usuarios, { foreignKey: 'id_usuario' });
   }
+
+  static async criaArtigo(dadosArtigo) {
+    const novoArtigo = await this.create(dadosArtigo);
+    return novoArtigo;
+  }
+
+  static async atualizaArtigo(artigo, dadosArtigo) {
+    const artigoAtualizado = await artigo.update(dadosArtigo);
+    return artigoAtualizado;
+  }
+
+  static async deletaArtigo(artigo) {
+    await artigo.destroy();
+  }
+
+  static async localizaArtigo(idArtigo) {
+    const artigoEncontrado = await this.findByPk(idArtigo);
+    return artigoEncontrado;
+  }
+
 }
