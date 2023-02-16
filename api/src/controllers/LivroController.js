@@ -6,7 +6,7 @@ class LivroController {
       const dadosLivro = req.body;
       dadosLivro.id_usuario = req.idUsuario;
       const livroCriado = await LivroModel.criaLivro(dadosLivro);
-      res.json(livroCriado);
+      res.status(201).json(livroCriado);
     } catch (e) {
       res.status(400)
         .json({

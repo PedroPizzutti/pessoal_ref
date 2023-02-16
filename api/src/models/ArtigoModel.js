@@ -1,4 +1,4 @@
-import Sequelize, { Model } from 'sequelize';
+import Sequelize, { Model, Op } from 'sequelize';
 
 export default class ArtigoModel extends Model {
   static init(sequelize) {
@@ -129,6 +129,60 @@ export default class ArtigoModel extends Model {
       },
       order: ['id', 'autor'],
     });
+    return artigosEncontrados;
+  }
+
+  static async buscaArtigosPorAutorTitulo(idUsuario, autor, titulo){
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        [Op.or]: [
+          {
+            autor: {
+              [Op.like]: `%${autor}%`,
+            },
+          },
+          {
+            titulo: {
+              [Op.like]: `%${titulo}%`,
+            },
+          },
+        ],
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return artigosEncontrados;
+  }
+
+  static async buscaArtigosPorAutor(idUsuario, autor){
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        autor: {
+          [Op.like]: `%${autor}%`,
+        },
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return artigosEncontrados;
+  }
+
+  static async buscaArtigosPorTitulo(idUsuario, titulo){
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        titulo: {
+          [Op.like]: `%${titulo}%`,
+        },
+      },
+      order: ['autor', 'titulo'],
+    });
+
     return artigosEncontrados;
   }
 

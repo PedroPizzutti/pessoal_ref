@@ -8,6 +8,7 @@ router.post('/', loginRequired, artigoController.store);
 router.put('/:id', loginRequired, artigoController.update);
 router.delete('/:id', loginRequired, artigoController.delete);
 router.get('/', loginRequired, artigoController.index);
-router.get('/:id', loginRequired, artigoController.show);
+router.get('/details/:id', loginRequired, artigoController.show);
+router.get('/search', loginRequired, artigoController.filter);
 
 export default router;

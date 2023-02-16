@@ -6,9 +6,12 @@ class LivroController {
       const dadosArtigo = req.body;
       dadosArtigo.id_usuario = req.idUsuario;
       const artigoCriado = await ArtigoModel.criaArtigo(dadosArtigo);
-      return res.json(artigoCriado);
+      return res.status(201).json(artigoCriado);
     } catch (e) {
-      trataErro(e);
+      return res.status(400)
+      .json({
+        erros: e.errors?.map((erro) => erro.message),
+      })
     }
   }
 
@@ -100,7 +103,33 @@ class LivroController {
         erros: e.errors?.map((erro) => erro.message),
       });
     }
+  }
 
+  async filter(req, res){
+    try {
+      const { autor, titulo } = req.query;
+
+      console.log(autor, titulo);
+
+      let artigosEncontrados;
+
+      if(autor && titulo){
+        artigosEncontrados = await ArtigoModel.buscaArtigosPorAutorTitulo(req.idUsuario, autor, titulo);
+      } else if(autor && !titulo) {
+        artigosEncontrados = await ArtigoModel.buscaArtigosPorAutor(req.idUsuario, autor);
+      } else if(!autor && titulo) {
+        artigosEncontrados = await ArtigoModel.buscaArtigosPorTitulo(req.idUsuario, titulo);
+      } else {
+        artigosEncontrados = await ArtigoModel.buscaArtigosUsuario(req.idUsuario);
+      }
+
+      return res.json(artigosEncontrados);
+    } catch (e) {
+      return res.status(400)
+      .json({
+        erros: e.errors?.map((erro) => erro.message),
+      });
+    }
   }
 }
 

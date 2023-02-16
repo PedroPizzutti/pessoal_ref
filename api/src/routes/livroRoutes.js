@@ -8,7 +8,7 @@ router.post('/', loginRequired, livroController.store);
 router.put('/:id', loginRequired, livroController.update);
 router.delete('/:id', loginRequired, livroController.delete);
 router.get('/', loginRequired, livroController.index);
-router.get('/:id', loginRequired, livroController.show);
+router.get('/details/:id', loginRequired, livroController.show);
 router.get('/search', loginRequired, livroController.filter);
 
 export default router;
