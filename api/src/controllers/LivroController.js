@@ -92,7 +92,7 @@ class LivroController {
 
       if (!livro) {
         return res.status(400).json({
-          erros: ['Aluno não encontrado...'],
+          erros: ['Livro não encontrado...'],
         });
       }
 
@@ -105,18 +105,26 @@ class LivroController {
   }
 
   async filter(req, res) {
-    const { autor, titulo } = req.query;
-    let livrosEncontrados;
+    try {
+      const { autor, titulo } = req.query;
 
-    if (autor && titulo) {
-      livrosEncontrados = await LivroModel.buscaLivrosPorAutorTitulo(req.idUsuario, autor, titulo);
-    } else if (autor && !titulo) {
-      livrosEncontrados = await LivroModel.buscaLivrosPorAutor(req.idUsuario, autor);
-    } else if (!autor && titulo) {
-      livrosEncontrados = await LivroModel.buscaLivrosPorTitulo(req.idUsuario, titulo);
+      let livrosEncontrados;
+
+      if (autor && titulo) {
+        livrosEncontrados = await LivroModel.buscaLivrosPorAutorTitulo(req.idUsuario, autor, titulo);
+      } else if (autor && !titulo) {
+        livrosEncontrados = await LivroModel.buscaLivrosPorAutor(req.idUsuario, autor);
+      } else if (!autor && titulo) {
+        livrosEncontrados = await LivroModel.buscaLivrosPorTitulo(req.idUsuario, titulo);
+      } else {
+        livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
+      }
+      res.json(livrosEncontrados);
+    } catch (e) {
+      return res.status(400).json({
+        errors: e.errors?.map((erro) => erro.message),
+      });
     }
-
-    res.json(livrosEncontrados);
   }
 }
 

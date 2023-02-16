@@ -7,10 +7,9 @@ class UsuarioController {
       const { id, nome, email } = novoUsuario;
       res.status(201).json({ id, nome, email });
     } catch (e) {
-      res.status(400)
-        .json({
-          erros: e.errors.map((error) => error.message),
-        });
+      return res.status(400).json({
+        erros: e.errors?.map((err) => err.message),
+      });
     }
   }
 
