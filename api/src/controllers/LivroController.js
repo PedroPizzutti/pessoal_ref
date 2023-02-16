@@ -73,6 +73,11 @@ class LivroController {
     }
   }
 
+  async index(req, res) {
+    const livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
+    res.json(livrosEncontrados);
+  }
+
   async show(req, res) {
     try {
       const idLivro = req.params.id;
@@ -97,11 +102,6 @@ class LivroController {
         errors: e.errors?.map((erro) => erro.message),
       });
     }
-  }
-
-  async index(req, res) {
-    const livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
-    res.json(livrosEncontrados);
   }
 
   async filter(req, res) {

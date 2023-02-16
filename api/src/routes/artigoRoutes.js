@@ -7,5 +7,6 @@ const router = new Router();
 router.post('/', loginRequired, artigoController.store);
 router.put('/:id', loginRequired, artigoController.update);
 router.delete('/:id', loginRequired, artigoController.delete);
+router.get('/', loginRequired, artigoController.index);
 
 export default router;

@@ -121,4 +121,15 @@ export default class ArtigoModel extends Model {
     return artigoEncontrado;
   }
 
+  static async buscaArtigosUsuario(idUsuario) {
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+      },
+      order: ['id', 'autor'],
+    });
+    return artigosEncontrados;
+  }
+
 }

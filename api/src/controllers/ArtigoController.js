@@ -72,6 +72,12 @@ class LivroController {
         });
     }
   }
+
+  async index(req, res) {
+    const artigosEncontrados = await ArtigoModel.buscaArtigosUsuario(req.idUsuario);
+    return res.json(artigosEncontrados);
+  }
+
 }
 
 export default new LivroController();
