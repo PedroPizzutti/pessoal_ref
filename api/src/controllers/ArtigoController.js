@@ -65,7 +65,7 @@ class LivroController {
 
       await ArtigoModel.deletaArtigo(artigo);
 
-      return res.status(204);
+      return res.status(204).json(null);
     } catch (e) {
       return res.status(400)
         .json({

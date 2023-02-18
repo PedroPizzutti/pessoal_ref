@@ -47,7 +47,7 @@ class UsuarioController {
 
       _UsuarioModel2.default.deletaUsuario(usuario);
 
-      return res.status(204);
+      return res.status(204).json(null);
     } catch (e) {
       return res.status(400).json({
         erros: _optionalChain([e, 'access', _7 => _7.errors, 'optionalAccess', _8 => _8.map, 'call', _9 => _9((err) => err.message)]),
