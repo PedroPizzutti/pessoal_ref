@@ -65,7 +65,7 @@ class LivroController {
 
       _LivroModel2.default.deletaLivro(livro);
 
-      return res.status(204).json(null);
+      return res.status(204);
     } catch (e) {
       return res.status(400)
         .json({

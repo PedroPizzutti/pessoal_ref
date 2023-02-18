@@ -47,7 +47,7 @@ class UsuarioController {
 
       UsuarioModel.deletaUsuario(usuario);
 
-      return res.status(200).json(null);
+      return res.status(204);
     } catch (e) {
       return res.status(400).json({
         erros: e.errors?.map((err) => err.message),
