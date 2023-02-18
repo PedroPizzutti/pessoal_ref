@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import LivroModel from '../models/LivroModel';
 
 class LivroController {
@@ -64,7 +65,7 @@ class LivroController {
 
       LivroModel.deletaLivro(livro);
 
-      return res.json(null);
+      return res.status(204).json(null);
     } catch (e) {
       return res.status(400)
         .json({
@@ -119,7 +120,7 @@ class LivroController {
       } else {
         livrosEncontrados = await LivroModel.buscaLivrosUsuario(req.idUsuario);
       }
-      res.json(livrosEncontrados);
+      return res.json(livrosEncontrados);
     } catch (e) {
       return res.status(400).json({
         errors: e.errors?.map((erro) => erro.message),

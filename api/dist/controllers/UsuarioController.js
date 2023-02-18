@@ -5,7 +5,7 @@ class UsuarioController {
     try {
       const novoUsuario = await _UsuarioModel2.default.criaUsuario(req.body);
       const { id, nome, email } = novoUsuario;
-      res.status(201).json({ id, nome, email });
+      return res.status(201).json({ id, nome, email });
     } catch (e) {
       return res.status(400).json({
         erros: _optionalChain([e, 'access', _ => _.errors, 'optionalAccess', _2 => _2.map, 'call', _3 => _3((err) => err.message)]),

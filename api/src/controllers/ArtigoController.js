@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import ArtigoModel from '../models/ArtigoModel';
 
 class LivroController {
@@ -9,9 +10,9 @@ class LivroController {
       return res.status(201).json(artigoCriado);
     } catch (e) {
       return res.status(400)
-      .json({
-        erros: e.errors?.map((erro) => erro.message),
-      })
+        .json({
+          erros: e.errors?.map((erro) => erro.message),
+        });
     }
   }
 
@@ -19,15 +20,15 @@ class LivroController {
     try {
       const idArtigo = req.params.id;
 
-      if(!idArtigo) {
+      if (!idArtigo) {
         return res.status(400).json({
-            erros: ['Faltando ID...'],
-          });
+          erros: ['Faltando ID...'],
+        });
       }
 
       const artigo = await ArtigoModel.localizaArtigo(idArtigo);
 
-      if(!artigo) {
+      if (!artigo) {
         return res.status(400).json({
           erros: ['Artigo não encontrado...'],
         });
@@ -40,7 +41,7 @@ class LivroController {
       return res.status(400)
         .json({
           erros: e.errors?.map((erro) => erro.message),
-        })
+        });
     }
   }
 
@@ -48,7 +49,7 @@ class LivroController {
     try {
       const idArtigo = req.params.id;
 
-      if(!idArtigo) {
+      if (!idArtigo) {
         return res.status(400).json({
           erros: ['Faltando ID...'],
         });
@@ -56,7 +57,7 @@ class LivroController {
 
       const artigo = await ArtigoModel.localizaArtigo(idArtigo);
 
-      if(!artigo) {
+      if (!artigo) {
         return res.status(400).json({
           erros: ['Artigo não encontrado...'],
         });
@@ -64,7 +65,7 @@ class LivroController {
 
       await ArtigoModel.deletaArtigo(artigo);
 
-      return res.json(null);
+      return res.status(204).json(null);
     } catch (e) {
       return res.status(400)
         .json({
@@ -82,30 +83,30 @@ class LivroController {
     try {
       const idArtigo = req.params.id;
 
-      if(!idArtigo) {
+      if (!idArtigo) {
         return res.status(400).json({
-          erros: ['Faltando ID...']
+          erros: ['Faltando ID...'],
         });
       }
 
       const artigo = await ArtigoModel.localizaArtigo(idArtigo);
 
-      if(!artigo) {
+      if (!artigo) {
         return res.status(400).json({
-          erros: ['Artigo não encontrado...']
+          erros: ['Artigo não encontrado...'],
         });
       }
 
       return res.json(artigo);
     } catch (e) {
       return res.status(400)
-      .json({
-        erros: e.errors?.map((erro) => erro.message),
-      });
+        .json({
+          erros: e.errors?.map((erro) => erro.message),
+        });
     }
   }
 
-  async filter(req, res){
+  async filter(req, res) {
     try {
       const { autor, titulo } = req.query;
 
@@ -113,11 +114,11 @@ class LivroController {
 
       let artigosEncontrados;
 
-      if(autor && titulo){
+      if (autor && titulo) {
         artigosEncontrados = await ArtigoModel.buscaArtigosPorAutorTitulo(req.idUsuario, autor, titulo);
-      } else if(autor && !titulo) {
+      } else if (autor && !titulo) {
         artigosEncontrados = await ArtigoModel.buscaArtigosPorAutor(req.idUsuario, autor);
-      } else if(!autor && titulo) {
+      } else if (!autor && titulo) {
         artigosEncontrados = await ArtigoModel.buscaArtigosPorTitulo(req.idUsuario, titulo);
       } else {
         artigosEncontrados = await ArtigoModel.buscaArtigosUsuario(req.idUsuario);
@@ -126,9 +127,9 @@ class LivroController {
       return res.json(artigosEncontrados);
     } catch (e) {
       return res.status(400)
-      .json({
-        erros: e.errors?.map((erro) => erro.message),
-      });
+        .json({
+          erros: e.errors?.map((erro) => erro.message),
+        });
     }
   }
 }

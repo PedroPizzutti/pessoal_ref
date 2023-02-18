@@ -31,7 +31,7 @@ class TokenController {
       expiresIn: process.env.TOKEN_EXPIRATION,
     });
 
-    return res.json({ token });
+    return res.status(201).json({ token });
   }
 }
 

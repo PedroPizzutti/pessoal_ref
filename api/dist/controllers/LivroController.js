@@ -1,4 +1,5 @@
-"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }var _LivroModel = require('../models/LivroModel'); var _LivroModel2 = _interopRequireDefault(_LivroModel);
+"use strict";Object.defineProperty(exports, "__esModule", {value: true}); function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; } function _optionalChain(ops) { let lastAccessLHS = undefined; let value = ops[0]; let i = 1; while (i < ops.length) { const op = ops[i]; const fn = ops[i + 1]; i += 2; if ((op === 'optionalAccess' || op === 'optionalCall') && value == null) { return undefined; } if (op === 'access' || op === 'optionalAccess') { lastAccessLHS = value; value = fn(value); } else if (op === 'call' || op === 'optionalCall') { value = fn((...args) => value.call(lastAccessLHS, ...args)); lastAccessLHS = undefined; } } return value; }/* eslint-disable max-len */
+var _LivroModel = require('../models/LivroModel'); var _LivroModel2 = _interopRequireDefault(_LivroModel);
 
 class LivroController {
   async store(req, res) {
@@ -64,7 +65,7 @@ class LivroController {
 
       _LivroModel2.default.deletaLivro(livro);
 
-      return res.json(null);
+      return res.status(204).json(null);
     } catch (e) {
       return res.status(400)
         .json({
@@ -119,7 +120,7 @@ class LivroController {
       } else {
         livrosEncontrados = await _LivroModel2.default.buscaLivrosUsuario(req.idUsuario);
       }
-      res.json(livrosEncontrados);
+      return res.json(livrosEncontrados);
     } catch (e) {
       return res.status(400).json({
         errors: _optionalChain([e, 'access', _13 => _13.errors, 'optionalAccess', _14 => _14.map, 'call', _15 => _15((erro) => erro.message)]),
