@@ -132,12 +132,12 @@ export default class ArtigoModel extends Model {
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorAutorTitulo(idUsuario, autor, titulo){
+  static async buscaArtigosPorAutorTitulo(idUsuario, autor, titulo) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
-        [Op.or]: [
+        [Op.and]: [
           {
             autor: {
               [Op.like]: `%${autor}%`,
@@ -156,7 +156,7 @@ export default class ArtigoModel extends Model {
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorAutor(idUsuario, autor){
+  static async buscaArtigosPorAutor(idUsuario, autor) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
@@ -171,7 +171,7 @@ export default class ArtigoModel extends Model {
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorTitulo(idUsuario, titulo){
+  static async buscaArtigosPorTitulo(idUsuario, titulo) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
@@ -185,5 +185,4 @@ export default class ArtigoModel extends Model {
 
     return artigosEncontrados;
   }
-
 }

@@ -116,7 +116,7 @@
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
-        [_sequelize.Op.or]: [
+        [_sequelize.Op.and]: [
           {
             autor: {
               [_sequelize.Op.like]: `%${autor}%`,

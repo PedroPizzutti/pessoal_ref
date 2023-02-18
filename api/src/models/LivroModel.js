@@ -116,7 +116,7 @@ export default class LivroModel extends Model {
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
-        [Op.or]: [
+        [Op.and]: [
           {
             autor: {
               [Op.like]: `%${autor}%`,

@@ -132,12 +132,12 @@
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorAutorTitulo(idUsuario, autor, titulo){
+  static async buscaArtigosPorAutorTitulo(idUsuario, autor, titulo) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
         id_usuario: idUsuario,
-        [_sequelize.Op.or]: [
+        [_sequelize.Op.and]: [
           {
             autor: {
               [_sequelize.Op.like]: `%${autor}%`,
@@ -156,7 +156,7 @@
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorAutor(idUsuario, autor){
+  static async buscaArtigosPorAutor(idUsuario, autor) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
@@ -171,7 +171,7 @@
     return artigosEncontrados;
   }
 
-  static async buscaArtigosPorTitulo(idUsuario, titulo){
+  static async buscaArtigosPorTitulo(idUsuario, titulo) {
     const artigosEncontrados = await this.findAll({
       attributes: ['id', 'autor', 'titulo', 'ano'],
       where: {
@@ -185,5 +185,4 @@
 
     return artigosEncontrados;
   }
-
 } exports.default = ArtigoModel;
