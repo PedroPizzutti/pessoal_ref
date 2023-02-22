@@ -8,13 +8,13 @@ export const BarraRodape = styled.footer`
 
   p {
     color: #fff;
-    margin: 0 10px 0;
+    margin: 0 10px 0 0;
     font-weight: bold;
   }
 
   a {
     color: #fff;
-    margin: 0 10px 0;
+    margin: 0 10px 0 0;
     font-weight: bold;
   }
 `;
