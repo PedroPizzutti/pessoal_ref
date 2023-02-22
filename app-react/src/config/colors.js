@@ -1,7 +1,7 @@
 export const corPrincipal = '#F2C00C';
 export const corEscuraPrincipal = '#5C501C';
 
-export const corSucesso = '#E8CE0C';
-export const corInformacao = '#DB9D15';
-export const corErro = '#E86C0C';
+export const corSucesso = '#AAD90B';
+export const corInformacao = '#BF8E1D';
+export const corErro = '#BF1C19';
 export const corAdvertencia = '#E86C0C';

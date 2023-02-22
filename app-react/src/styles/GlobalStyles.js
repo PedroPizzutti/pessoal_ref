@@ -1,5 +1,6 @@
 import styled, { createGlobalStyle } from 'styled-components';
 import * as cores from '../config/colors';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   *{
@@ -44,6 +45,22 @@ export default createGlobalStyle`
 
   ul {
     list-style: none;
+  }
+
+  body .Toastify .Toastify__toast-container .Toastify__toast--success{
+    background: ${cores.corSucesso};
+  }
+
+  body .Toastify .Toastify__toast-container .Toastify__toast--error{
+    background: ${cores.corErro};
+  }
+
+  body .Toastify .Toastify__toast-container .Toastify__toast--warning{
+    background: ${cores.corAdvertencia};
+  }
+
+  body .Toastify .Toastify__toast-container .Toastify__toast--info{
+    background: ${cores.corInformacao};
   }
 `;
 
