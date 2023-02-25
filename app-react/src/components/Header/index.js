@@ -9,10 +9,10 @@ export default function Header() {
       <Link to="/">
         <FaHome size={24} />
       </Link>
-      <Link to="/aleluiaa">
+      <Link to="/register">
         <FaUserAlt size={24} />
       </Link>
-      <Link to="/perdião">
+      <Link to="/login">
         <FaSignInAlt size={24} />
       </Link>
     </BarraNavegacao>
