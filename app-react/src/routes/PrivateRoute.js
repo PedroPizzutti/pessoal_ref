@@ -7,7 +7,8 @@ export default function PrivateRoute({
   isClosed,
   ...rest
 }) {
-  const isLoggedIn = false;
+  // Por enquanto setamos verdadeiro para acessar as rotas
+  const isLoggedIn = true;
 
   if (isClosed && !isLoggedIn) {
     return (

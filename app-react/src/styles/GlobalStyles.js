@@ -28,6 +28,7 @@ export default createGlobalStyle`
     padding: 10px 20px;
     border-radius: 4px;
     font-weight: 700;
+    transition: all 250ms;
 
     &:hover {
       background: ${cores.corEscuraPrincipal};
@@ -37,6 +38,7 @@ export default createGlobalStyle`
   a {
     text-decoration: none;
     color: ${cores.corPrincipal};
+    transition: all 250ms;
 
     &:hover {
       color: ${cores.corEscuraPrincipal};

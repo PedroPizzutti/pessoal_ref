@@ -22,5 +22,5 @@ export const LinkEstilizado = styled(Link)`
   background: ${cores.corPrincipal};
   color: #fff;
   padding: 10px;
-  border-radius: 10%;
+  border-radius: 4%;
 `;
