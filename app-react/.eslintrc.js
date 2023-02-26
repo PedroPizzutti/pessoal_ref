@@ -27,7 +27,12 @@ module.exports = {
     'react-hooks'
   ],
   rules: {
-    'prettier/prettier': 'error',
+    'prettier/prettier': [
+      'error',
+      {
+        'endOfLine': 'auto',
+      }
+    ],
     'react/jsx-filename-extension': 0,
     'import/prefer-default-export': 0,
     'import/no-extraneous-dependencies': ['error', {'devDependencies': true}],
