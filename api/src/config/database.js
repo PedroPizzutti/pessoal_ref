@@ -1,6 +1,6 @@
 module.exports = {
   dialect: 'sqlite',
-  storage: './bd_pessoal_ref.sqlite',
+  storage: '../database/bd_pessoal_ref.sqlite',
 
   define: {
     timestamps: true,
