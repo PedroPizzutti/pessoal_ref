@@ -72,7 +72,7 @@ export default function Referencias() {
             type="text"
             value={nome}
             onChange={(e) => setNome(e.target.value)}
-            placeholder="Exemplo: Joao da Silva"
+            placeholder="Seu nome completo"
           />
         </label>
 
@@ -82,7 +82,7 @@ export default function Referencias() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            placeholder="Exemplo: E-mail@.com"
+            placeholder="Seu e-mail"
           />
         </label>
 
@@ -92,17 +92,17 @@ export default function Referencias() {
             type="password"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
-            placeholder="Exemplo: aOyihgf987@"
+            placeholder="Sua senha"
           />
         </label>
 
-        <label htmlFor="confirmaSenha">
+        <label htmlFor="sua senha novamente">
           Confirma senha:
           <input
             type="password"
             value={confirmaSenha}
             onChange={(e) => setConfirmaSenha(e.target.value)}
-            placeholder="Exemplo: aOyihgf987@"
+            placeholder="Sua senha novamente"
           />
         </label>
 
