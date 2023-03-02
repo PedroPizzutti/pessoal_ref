@@ -1,15 +1,20 @@
-import { createStore } from 'redux';
+import { persistStore } from 'redux-persist';
+import { createStore, applyMiddleware } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case 'EXEMPLO':
-      return state;
+import persistedReducers from './modules/reduxPersist';
 
-    default:
-      return state;
-  }
-};
+import rootReducer from './modules/rootReducer';
+import rootSaga from './modules/rootSaga';
 
-const store = createStore(reducer);
+const sagaMiddleware = createSagaMiddleware();
 
+const store = createStore(
+  persistedReducers(rootReducer),
+  applyMiddleware(sagaMiddleware)
+);
+
+sagaMiddleware.run(rootSaga);
+
+export const persistor = persistStore(store);
 export default store;
