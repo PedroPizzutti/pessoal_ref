@@ -1,15 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
+import { get } from 'lodash';
 import React, { useState } from 'react';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import { get } from 'lodash';
 
-import { Container } from '../../styles/GlobalStyles';
-import { Titulo, Form } from './styled';
+import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
+import { Container } from '../../styles/GlobalStyles';
+import { Form, Titulo } from './styled';
 
 export default function Referencias() {
+  const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -42,6 +44,7 @@ export default function Referencias() {
 
     if (formErrors) return;
 
+    setIsLoading(true);
     try {
       await axios.post('/usuarios/', {
         nome,
@@ -49,21 +52,23 @@ export default function Referencias() {
         email,
       });
       toast.success('Cadastro realizado com sucesso!');
+      setIsLoading(false);
       history.push('/login');
     } catch (error) {
       const status = get(error, 'response.status', 0);
       const erros = get(error, 'response.data.erros', []);
-
+      setIsLoading(false);
       if (status === 400) {
         erros.map((err) => toast.error(err));
       } else {
-        erros.map((err) => toast.error(`Erro não tratado: ${status} ${err}`));
+        toast.error(`Erro não tratado: ${error.message}`);
       }
     }
   }
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <Titulo>Crie sua conta!</Titulo>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">

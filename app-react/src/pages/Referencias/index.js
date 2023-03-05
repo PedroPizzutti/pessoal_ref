@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from '../../styles/GlobalStyles';
-import { Titulo, Paragrafo, LinkEstilizado, Divisoria } from './styled';
+import { Divisoria, LinkEstilizado, Paragrafo, Titulo } from './styled';
 
 export default function Referencias() {
   return (
@@ -9,7 +9,7 @@ export default function Referencias() {
         <Titulo>Bem-vindo(a) a sua biblioteca pessoal!</Titulo>
       </Divisoria>
       <Divisoria>
-        <Paragrafo>O que você gostaria de consultar hoje?</Paragrafo>
+        <Paragrafo>O que você gostaria de consultar?</Paragrafo>
       </Divisoria>
       <Divisoria>
         <LinkEstilizado to="/livros">Meus livros</LinkEstilizado>

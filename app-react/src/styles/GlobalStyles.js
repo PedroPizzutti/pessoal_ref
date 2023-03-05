@@ -1,6 +1,6 @@
+import 'react-toastify/dist/ReactToastify.css';
 import styled, { createGlobalStyle } from 'styled-components';
 import * as cores from '../config/colors';
-import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
   *{
@@ -67,7 +67,7 @@ export default createGlobalStyle`
 `;
 
 export const Container = styled.section`
-  max-width: 640px;
+  max-width: 900px;
   background: #fff;
   margin: 30px auto;
   padding: 30px;

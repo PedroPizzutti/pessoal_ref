@@ -1,17 +1,18 @@
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
 import { get } from 'lodash';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import { useDispatch } from 'react-redux';
-import { Container } from '../../styles/GlobalStyles';
-import { Titulo, Form } from './styled';
+import Loading from '../../components/Loading';
 import * as actions from '../../store/modules/auth/actions';
+import { Container } from '../../styles/GlobalStyles';
+import { Form, Titulo } from './styled';
 
 export default function Login(props) {
   const dispatch = useDispatch();
-
   const prevPath = get(props, 'location.state.prevPath', '/');
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
   const [email, setEmail] = React.useState('');
   const [senha, setSenha] = React.useState('');
@@ -38,6 +39,7 @@ export default function Login(props) {
 
   return (
     <Container>
+      <Loading isLoading={isLoading} />
       <Titulo>Login</Titulo>
 
       <Form onSubmit={handleSubmit}>
