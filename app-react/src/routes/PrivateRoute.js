@@ -1,14 +1,14 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Redirect, Route } from 'react-router-dom';
 
 export default function PrivateRoute({
   component: Component,
   isClosed,
   ...rest
 }) {
-  // Por enquanto setamos verdadeiro para acessar as rotas
-  const isLoggedIn = true;
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
   if (isClosed && !isLoggedIn) {
     return (

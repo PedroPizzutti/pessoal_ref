@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import React from 'react';
+import { get } from 'lodash';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
 import { useDispatch } from 'react-redux';
@@ -7,8 +8,10 @@ import { Container } from '../../styles/GlobalStyles';
 import { Titulo, Form } from './styled';
 import * as actions from '../../store/modules/auth/actions';
 
-export default function Login() {
+export default function Login(props) {
   const dispatch = useDispatch();
+
+  const prevPath = get(props, 'location.state.prevPath', '/');
 
   const [email, setEmail] = React.useState('');
   const [senha, setSenha] = React.useState('');
@@ -30,7 +33,7 @@ export default function Login() {
 
     if (formErrors) return;
 
-    dispatch(actions.loginRequest({ email, senha }));
+    dispatch(actions.loginRequest({ email, senha, prevPath }));
   }
 
   return (
