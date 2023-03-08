@@ -1,8 +1,9 @@
 /* eslint-disable react/jsx-no-bind */
 import { get } from 'lodash';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
+import { useSelector } from 'react-redux';
 
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
@@ -10,12 +11,22 @@ import history from '../../services/history';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
 
-export default function Referencias() {
+export default function Register() {
+  const id = useSelector((state) => state.auth.usuario.id);
+  const nomeStored = useSelector((state) => state.auth.usuario.nome);
+  const emailStored = useSelector((state) => state.auth.usuario.email);
+
   const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [confirmaSenha, setConfirmaSenha] = useState('');
+
+  useEffect(() => {
+    if (!id) return;
+    setNome(nomeStored);
+    setEmail(emailStored);
+  }, [id, emailStored, nomeStored]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -32,12 +43,12 @@ export default function Referencias() {
       toast.error('E-mail inválido.');
     }
 
-    if (senha.length < 6 || senha.length > 50) {
+    if (!id && (senha.length < 6 || senha.length > 50)) {
       formErrors = true;
       toast.error('Campo "Senha" deve ter entre 6 e 50 caracteres.');
     }
 
-    if (senha !== confirmaSenha) {
+    if (!id && senha !== confirmaSenha) {
       formErrors = true;
       toast.error('Campo "Senha" e "Confirma senha" devem ser iguais.');
     }
@@ -69,7 +80,7 @@ export default function Referencias() {
   return (
     <Container>
       <Loading isLoading={isLoading} />
-      <Titulo>Crie sua conta!</Titulo>
+      <Titulo>{id ? 'Editar dados' : 'Crie sua conta!'}</Titulo>
       <Form onSubmit={handleSubmit}>
         <label htmlFor="nome">
           Nome:
@@ -111,7 +122,9 @@ export default function Referencias() {
           />
         </label>
 
-        <button type="submit">Criar minha conta</button>
+        <button type="submit">
+          {id ? 'Salvar alterações' : 'Criar minha conta'}
+        </button>
       </Form>
     </Container>
   );

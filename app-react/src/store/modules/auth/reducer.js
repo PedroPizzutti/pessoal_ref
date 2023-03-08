@@ -3,7 +3,7 @@ import * as types from '../types';
 const initialState = {
   isLoggedIn: false,
   token: false,
-  user: {},
+  usuario: {},
   isLoading: false,
 };
 
@@ -13,7 +13,7 @@ export default function reducer(state = initialState, action) {
       const newState = { ...state };
       newState.isLoggedIn = true;
       newState.token = action.payload.token;
-      newState.user = action.payload.user;
+      newState.usuario = action.payload.usuario;
       newState.isLoading = false;
       return newState;
     }
