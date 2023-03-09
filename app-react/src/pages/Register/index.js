@@ -1,22 +1,22 @@
 /* eslint-disable react/jsx-no-bind */
-import { get } from 'lodash';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import { isEmail } from 'validator';
-import { useSelector } from 'react-redux';
 
 import Loading from '../../components/Loading';
-import axios from '../../services/axios';
-import history from '../../services/history';
+import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
 
 export default function Register() {
+  const dispatch = useDispatch();
+
   const id = useSelector((state) => state.auth.usuario.id);
   const nomeStored = useSelector((state) => state.auth.usuario.nome);
   const emailStored = useSelector((state) => state.auth.usuario.email);
+  const isLoading = useSelector((state) => state.auth.isLoading);
 
-  const [isLoading, setIsLoading] = useState(false);
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -55,26 +55,7 @@ export default function Register() {
 
     if (formErrors) return;
 
-    setIsLoading(true);
-    try {
-      await axios.post('/usuarios/', {
-        nome,
-        senha,
-        email,
-      });
-      toast.success('Cadastro realizado com sucesso!');
-      setIsLoading(false);
-      history.push('/login');
-    } catch (error) {
-      const status = get(error, 'response.status', 0);
-      const erros = get(error, 'response.data.erros', []);
-      setIsLoading(false);
-      if (status === 400) {
-        erros.map((err) => toast.error(err));
-      } else {
-        toast.error(`Erro não tratado: ${error.message}`);
-      }
-    }
+    dispatch(actions.registerRequest({ id, nome, email, senha }));
   }
 
   return (
