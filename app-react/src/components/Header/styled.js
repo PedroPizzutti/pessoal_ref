@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import * as cores from '../../config/colors';
 
 export const BarraNavegacao = styled.nav`
   padding: 20px;
@@ -8,7 +9,11 @@ export const BarraNavegacao = styled.nav`
 
   a {
     color: #fff;
-    margin: 0 10px 0 0;
+    margin: 0 20px 0 0;
     font-weight: bold;
+
+    &:hover {
+      color: ${cores.corEscuraPrincipal};
+    }
   }
 `;
