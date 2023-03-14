@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
-import { Tabela, Titulo } from './styled';
+import { Form, Tabela, Titulo } from './styled';
 
 export default function Livros() {
+  const [filtro, setFiltro] = useState('');
   const [livros, setLivros] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -19,10 +20,28 @@ export default function Livros() {
     getData();
   }, []);
 
+  async function handlePesquisar(e) {
+    e.preventDefault();
+  }
+
   return (
     <Container>
       <Loading isLoading={isLoading} />
       <Titulo>Livros</Titulo>
+      <Form>
+        <label htmlFor="filtro">
+          Pesquisar:
+          <input
+            type="text"
+            value={filtro}
+            onChange={(e) => setFiltro(e.target.value)}
+            placeholder="Insira o filtro da pesquisa"
+          />
+        </label>
+        <button type="submit" onSubmit={handlePesquisar}>
+          Pesquisar
+        </button>
+      </Form>
       <Tabela>
         <thead>
           <tr>
