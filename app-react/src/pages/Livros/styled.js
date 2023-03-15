@@ -7,20 +7,19 @@ export const Titulo = styled.h1`
 `;
 
 export const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin-top: 30px;
+  margin-top: 40px;
+  margin-bottom: 30px;
 
   label {
-    display: flex;
-    font-size: 24px;
-    flex-direction: column;
-    margin-bottom: 5px;
+    width: 50px;
+    font-size: 22px;
   }
 
   input {
+    box-sizing: border-box;
+    width: calc(100% - 170px);
+    margin-left: 10px;
     height: 40px;
-    margin-top: 5px;
     box-shadow: 0 0 1px 0.1px;
     font-size: 16px;
     border: 1px solid #ddd;
@@ -29,6 +28,10 @@ export const Form = styled.form`
   }
 
   button {
+    width: 40px;
+    margin-left: 10px;
+    padding: 0 10px;
+    height: 40px;
   }
 `;
 

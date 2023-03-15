@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { FaSearch } from 'react-icons/fa';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
@@ -39,7 +40,7 @@ export default function Livros() {
           />
         </label>
         <button type="submit" onSubmit={handlePesquisar}>
-          Pesquisar
+          <FaSearch size={24} />
         </button>
       </Form>
       <Tabela>
