@@ -33,6 +33,10 @@ export const Form = styled.form`
     padding: 0 10px;
     height: 40px;
   }
+
+  svg {
+    font-size: 18px;
+  }
 `;
 
 export const Tabela = styled.table`

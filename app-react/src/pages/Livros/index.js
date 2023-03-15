@@ -40,7 +40,7 @@ export default function Livros() {
           />
         </label>
         <button type="submit" onSubmit={handlePesquisar}>
-          <FaSearch size={24} />
+          <FaSearch />
         </button>
       </Form>
       <Tabela>
