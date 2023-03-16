@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { FaSearch } from 'react-icons/fa';
+import { FaEdit, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
-import { Form, Tabela, Titulo } from './styled';
+import { FiltroPesquisa, Form, Tabela, Titulo } from './styled';
 
 export default function Livros() {
-  const [filtro, setFiltro] = useState('');
+  const [palavraPesquisa, setPalavraPesquisa] = useState('');
+  const [filtroTitulo, setfiltroTitulo] = useState(false);
+  const [filtroAutor, setfiltroAutor] = useState(false);
   const [livros, setLivros] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,12 +32,12 @@ export default function Livros() {
       <Loading isLoading={isLoading} />
       <Titulo>Livros</Titulo>
       <Form>
-        <label htmlFor="filtro">
+        <label htmlFor="palavraPesquisa">
           Pesquisar:
           <input
             type="text"
-            value={filtro}
-            onChange={(e) => setFiltro(e.target.value)}
+            value={palavraPesquisa}
+            onChange={(e) => setPalavraPesquisa(e.target.value)}
             placeholder="Insira o filtro da pesquisa"
           />
         </label>
@@ -43,13 +45,40 @@ export default function Livros() {
           <FaSearch />
         </button>
       </Form>
+      <FiltroPesquisa>
+        <label htmlFor="filtroAutor">
+          <input
+            type="checkbox"
+            value={filtroAutor}
+            onChange={(e) => setfiltroAutor(e.target)}
+          />
+          autor(a)
+        </label>
+        <label htmlFor="filtroTitulo">
+          <input
+            type="checkbox"
+            value={filtroTitulo}
+            onChange={(e) => setfiltroTitulo(e.target)}
+          />
+          título
+        </label>
+      </FiltroPesquisa>
       <Tabela>
         <thead>
           <tr>
             <th>ID</th>
             <th>Ano</th>
-            <th>Autor</th>
+            <th>Autor(a)</th>
             <th>Título</th>
+            <th>
+              <FaEye />
+            </th>
+            <th>
+              <FaEdit />
+            </th>
+            <th>
+              <FaWindowClose />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -59,6 +88,15 @@ export default function Livros() {
               <td>{livro.ano}</td>
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
+              <td>
+                <FaEye />
+              </td>
+              <td>
+                <FaEdit />
+              </td>
+              <td>
+                <FaWindowClose />
+              </td>
             </tr>
           ))}
         </tbody>

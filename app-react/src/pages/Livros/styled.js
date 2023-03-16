@@ -8,7 +8,7 @@ export const Titulo = styled.h1`
 
 export const Form = styled.form`
   margin-top: 40px;
-  margin-bottom: 30px;
+  margin-bottom: 0px;
 
   label {
     width: 50px;
@@ -17,14 +17,18 @@ export const Form = styled.form`
 
   input {
     box-sizing: border-box;
-    width: calc(100% - 170px);
+    width: calc(100% - 180px);
     margin-left: 10px;
     height: 40px;
     box-shadow: 0 0 1px 0.1px;
-    font-size: 16px;
     border: 1px solid #ddd;
+    font-size: 16px;
     padding: 0 10px;
     border-radius: 4px;
+
+    &:focus {
+      border: 2px solid ${cores.corPrincipal};
+    }
   }
 
   button {
@@ -35,7 +39,30 @@ export const Form = styled.form`
   }
 
   svg {
+    font-size: 15px;
+  }
+`;
+
+export const FiltroPesquisa = styled.div`
+  margin-top: 10px;
+  margin-bottom: 30px;
+  margin-right: 50px;
+  padding: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  label {
     font-size: 18px;
+    margin-left: 5px;
+    margin-right: 10px;
+
+    input {
+      box-shadow: 0 0 0.1px 0.1px;
+      border: 0.1px solid #ddd;
+      transform: scale(1.5);
+      margin-right: 10px;
+    }
   }
 `;
 
