@@ -165,4 +165,32 @@ export default class LivroModel extends Model {
 
     return livrosEncontrados;
   }
+
+  static async buscaLivrosPorPalavra(idUsuario, palavra) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        [Op.or]: [
+          {
+            ano: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            autor: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            titulo: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+        ],
+      },
+    });
+
+    return livrosEncontrados;
+  }
 }

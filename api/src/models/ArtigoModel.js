@@ -185,4 +185,33 @@ export default class ArtigoModel extends Model {
 
     return artigosEncontrados;
   }
+
+  static async buscaArtigosPorPalavra(idUsuario, palavra) {
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        [Op.or]: [
+          {
+            ano: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            autor: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            titulo: {
+              [Op.like]: `%${palavra}%`,
+            },
+          },
+        ],
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return artigosEncontrados;
+  }
 }

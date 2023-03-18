@@ -108,9 +108,7 @@ class LivroController {
 
   async filter(req, res) {
     try {
-      const { autor, titulo } = req.query;
-
-      console.log(autor, titulo);
+      const { autor, titulo, palavra } = req.query;
 
       let artigosEncontrados;
 
@@ -120,6 +118,8 @@ class LivroController {
         artigosEncontrados = await ArtigoModel.buscaArtigosPorAutor(req.idUsuario, autor);
       } else if (!autor && titulo) {
         artigosEncontrados = await ArtigoModel.buscaArtigosPorTitulo(req.idUsuario, titulo);
+      } else if ((!(autor || titulo)) && palavra) {
+        artigosEncontrados = await ArtigoModel.buscaArtigosPorPalavra(req.idUsuario, palavra);
       } else {
         artigosEncontrados = await ArtigoModel.buscaArtigosUsuario(req.idUsuario);
       }

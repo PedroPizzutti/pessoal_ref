@@ -185,4 +185,33 @@
 
     return artigosEncontrados;
   }
+
+  static async buscaArtigosPorPalavra(idUsuario, palavra) {
+    const artigosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        [_sequelize.Op.or]: [
+          {
+            ano: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            autor: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            titulo: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+        ],
+      },
+      order: ['autor', 'titulo'],
+    });
+
+    return artigosEncontrados;
+  }
 } exports.default = ArtigoModel;

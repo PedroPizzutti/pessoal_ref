@@ -165,4 +165,32 @@
 
     return livrosEncontrados;
   }
+
+  static async buscaLivrosPorPalavra(idUsuario, palavra) {
+    const livrosEncontrados = await this.findAll({
+      attributes: ['id', 'autor', 'titulo', 'ano'],
+      where: {
+        id_usuario: idUsuario,
+        [_sequelize.Op.or]: [
+          {
+            ano: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            autor: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+          {
+            titulo: {
+              [_sequelize.Op.like]: `%${palavra}%`,
+            },
+          },
+        ],
+      },
+    });
+
+    return livrosEncontrados;
+  }
 } exports.default = LivroModel;
