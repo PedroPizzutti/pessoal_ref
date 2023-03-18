@@ -1,9 +1,19 @@
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import { FaEdit, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
-import { FiltroPesquisa, Form, Tabela, Titulo } from './styled';
+import {
+  Deletar,
+  Editar,
+  FiltroPesquisa,
+  Form,
+  Tabela,
+  Titulo,
+  Visualizar
+} from './styled';
 
 export default function Livros() {
   const [palavraPesquisa, setPalavraPesquisa] = useState('');
@@ -25,13 +35,47 @@ export default function Livros() {
 
   async function handlePesquisar(e) {
     e.preventDefault();
+
+    let params;
+
+    if (!(filtroAutor || filtroTitulo) && palavraPesquisa){
+      params = {
+        palavra: palavraPesquisa,
+       }
+    }
+
+    if (filtroAutor && filtroTitulo) {
+      params = {
+        autor: palavraPesquisa,
+        titulo: palavraPesquisa,
+       }
+    };
+
+    if (filtroAutor) {
+      params = {
+        autor: palavraPesquisa,
+       }
+    };
+
+    if (filtroTitulo) {
+      params = {
+        titulo: palavraPesquisa,
+       }
+    };
+
+    setIsLoading(true);
+    const response = await axios.get('/livros/search', {
+      params,
+    })
+    setLivros(response.data);
+    setIsLoading(false);
   }
 
   return (
     <Container>
       <Loading isLoading={isLoading} />
       <Titulo>Livros</Titulo>
-      <Form>
+      <Form onSubmit={handlePesquisar}>
         <label htmlFor="palavraPesquisa">
           Pesquisar:
           <input
@@ -41,7 +85,7 @@ export default function Livros() {
             placeholder="Insira o filtro da pesquisa"
           />
         </label>
-        <button type="submit" onSubmit={handlePesquisar}>
+        <button type="submit">
           <FaSearch />
         </button>
       </Form>
@@ -50,7 +94,7 @@ export default function Livros() {
           <input
             type="checkbox"
             value={filtroAutor}
-            onChange={(e) => setfiltroAutor(e.target)}
+            onChange={(e) =>  setfiltroAutor(e.target.checked)}
           />
           autor(a)
         </label>
@@ -58,7 +102,7 @@ export default function Livros() {
           <input
             type="checkbox"
             value={filtroTitulo}
-            onChange={(e) => setfiltroTitulo(e.target)}
+            onChange={(e) => setfiltroTitulo(e.target.checked)}
           />
           título
         </label>
@@ -83,19 +127,25 @@ export default function Livros() {
         </thead>
         <tbody>
           {livros.map((livro) => (
-            <tr>
+            <tr key={String(livro.id)}>
               <td>{livro.id}</td>
               <td>{livro.ano}</td>
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
               <td>
-                <FaEye />
+                <Visualizar to="\##">
+                  <FaEye />
+                </Visualizar>
               </td>
               <td>
-                <FaEdit />
+                <Editar to="\##">
+                  <FaEdit />
+                </Editar>
               </td>
               <td>
-                <FaWindowClose />
+                <Deletar to="\##">
+                  <FaWindowClose />
+                </Deletar>
               </td>
             </tr>
           ))}

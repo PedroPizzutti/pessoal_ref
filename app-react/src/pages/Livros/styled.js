@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import * as cores from '../../config/colors';
 
@@ -43,6 +44,30 @@ export const Form = styled.form`
   }
 `;
 
+export const Tabela = styled.table`
+  width: 100%;
+  margin-top: 5px;
+  border-collapse: collapse;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+  th,
+  td {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid ${cores.corPrincipal};
+    align-items: center;
+    justify-content: left;
+    padding: 15px;
+  }
+
+  th {
+    font-size: 20px;
+  }
+
+  td {
+    font-size: 18px;
+  }
+`;
+
 export const FiltroPesquisa = styled.div`
   margin-top: 10px;
   margin-bottom: 30px;
@@ -66,26 +91,20 @@ export const FiltroPesquisa = styled.div`
   }
 `;
 
-export const Tabela = styled.table`
-  width: 100%;
-  margin-top: 5px;
-  border-collapse: collapse;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-
-  th,
-  td {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 1px solid ${cores.corPrincipal};
-    align-items: center;
-    justify-content: left;
-    padding: 15px;
+export const Visualizar = styled(Link)`
+  &:hover {
+    color: ${cores.corEscuraPrincipal};
   }
+`;
 
-  th {
-    font-size: 20px;
+export const Editar = styled(Link)`
+  &:hover {
+    color: ${cores.corEscuraPrincipal};
   }
+`;
 
-  td {
-    font-size: 18px;
+export const Deletar = styled(Link)`
+  &:hover {
+    color: ${cores.corAdvertencia};
   }
 `;
