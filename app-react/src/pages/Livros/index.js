@@ -1,13 +1,13 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prettier/prettier */
+import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { FaEye, FaSearch } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  Deletar,
-  Editar,
   FiltroPesquisa,
   Form,
   Tabela,
@@ -24,10 +24,18 @@ export default function Livros() {
 
   useEffect(() => {
     async function getData() {
-      setIsLoading(true);
-      const response = await axios.get('/livros');
-      setLivros(response.data);
-      setIsLoading(false);
+
+      try {
+        setIsLoading(true);
+        const response = await axios.get('/livros');
+        setLivros(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        const erros = get(error, 'response.data.erros', []);
+        toast.error(`Problema ao carregar livros ${erros}`);
+      }
+
     }
 
     getData();
@@ -117,12 +125,6 @@ export default function Livros() {
             <th>
               <FaEye />
             </th>
-            <th>
-              <FaEdit />
-            </th>
-            <th>
-              <FaWindowClose />
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -133,19 +135,9 @@ export default function Livros() {
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
               <td>
-                <Visualizar to="\##">
+                <Visualizar to={`/livro/${livro.id}`}>
                   <FaEye />
                 </Visualizar>
-              </td>
-              <td>
-                <Editar to="\##">
-                  <FaEdit />
-                </Editar>
-              </td>
-              <td>
-                <Deletar to="\##">
-                  <FaWindowClose />
-                </Deletar>
               </td>
             </tr>
           ))}

@@ -55,7 +55,8 @@ export const Tabela = styled.table`
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border: 1px solid ${cores.corPrincipal};
     align-items: center;
-    justify-content: left;
+    justify-content: center;
+    text-align: center;
     padding: 15px;
   }
 
@@ -94,17 +95,5 @@ export const FiltroPesquisa = styled.div`
 export const Visualizar = styled(Link)`
   &:hover {
     color: ${cores.corEscuraPrincipal};
-  }
-`;
-
-export const Editar = styled(Link)`
-  &:hover {
-    color: ${cores.corEscuraPrincipal};
-  }
-`;
-
-export const Deletar = styled(Link)`
-  &:hover {
-    color: ${cores.corAdvertencia};
   }
 `;
