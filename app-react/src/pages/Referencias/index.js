@@ -9,11 +9,13 @@ export default function Referencias() {
         <Titulo>Bem-vindo(a) a sua biblioteca pessoal!</Titulo>
       </Divisoria>
       <Divisoria>
-        <Paragrafo>O que você gostaria de consultar?</Paragrafo>
+        <Paragrafo>O que você gostaria de fazer?</Paragrafo>
       </Divisoria>
       <Divisoria>
-        <LinkEstilizado to="/livros">Meus livros</LinkEstilizado>
-        <LinkEstilizado to="/artigos">Meus artigos</LinkEstilizado>
+        <LinkEstilizado to="/livro">Adicionar um livro</LinkEstilizado>
+        <LinkEstilizado to="/artigo">Adicionar um artigo</LinkEstilizado>
+        <LinkEstilizado to="/livros">Consultar meus livros</LinkEstilizado>
+        <LinkEstilizado to="/artigos">Consultar meus artigos</LinkEstilizado>
       </Divisoria>
     </Container>
   );

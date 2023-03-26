@@ -1,5 +1,5 @@
-import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components';
 import * as cores from '../../config/colors';
 
 export const Titulo = styled.h1`
@@ -7,6 +7,7 @@ export const Titulo = styled.h1`
 `;
 
 export const Paragrafo = styled.p`
+  font-size: 18px;
   margin-top: 10px;
 `;
 
@@ -18,6 +19,8 @@ export const Divisoria = styled.div`
 `;
 
 export const LinkEstilizado = styled(Link)`
+  font-size: 18px;
+  margin-top: 10px;
   margin-right: 20px;
   background: ${cores.corPrincipal};
   color: #fff;

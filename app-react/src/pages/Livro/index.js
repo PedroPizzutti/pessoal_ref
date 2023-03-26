@@ -46,7 +46,7 @@ export default function Livro({ match }) {
 
   return (
     <Container>
-      <Titulo>Livro</Titulo>
+      <Titulo>{idLivro ? 'Editar livro' : 'Novo livro'}</Titulo>
       <Loading isLoading={isLoading} />
       <Form onSubmit="###">
         <label htmlFor="titulo">
