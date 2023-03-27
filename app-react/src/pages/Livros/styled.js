@@ -97,3 +97,9 @@ export const Visualizar = styled(Link)`
     color: ${cores.corEscuraPrincipal};
   }
 `;
+
+export const Editar = styled(Link)`
+  &:hover {
+    color: ${cores.corEscuraPrincipal};
+  }
+`;

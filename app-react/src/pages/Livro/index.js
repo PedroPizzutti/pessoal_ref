@@ -1,4 +1,5 @@
-import { get } from 'lodash';
+/* eslint-disable react/jsx-no-bind */
+import { get, isInteger } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
@@ -44,11 +45,50 @@ export default function Livro({ match }) {
     getData();
   }, [idLivro]);
 
+  async function handleSubmit(e) {
+    e.preventDefault();
+    let formErrors = false;
+
+    if (autor.length < 3 || autor.length > 255) {
+      toast.error('Campo "Autor(a)" deve ter entre 3 e 255 caracteres');
+      formErrors = true;
+    }
+
+    if (titulo.length < 3 || titulo.length > 255) {
+      toast.error('Campo "Título" deve ter entre 3 e 255 caracteres');
+      formErrors = true;
+    }
+
+    if (isInteger(ano)) {
+      toast.error('Campo "Ano" deve ser um número inteiro');
+      formErrors = true;
+    }
+
+    if (localizacao.length < 3 || localizacao.length > 255) {
+      toast.error(
+        'Campo "Localização da publicação" deve ter entre 3 e 255 caracteres'
+      );
+      formErrors = true;
+    }
+
+    if (editora.length < 3 || editora.length > 255) {
+      toast.error('Campo "Editora" deve ter entre 3 e 255 caracteres');
+      formErrors = true;
+    }
+
+    if (editora.length < 25 || editora.length > 255) {
+      toast.error('Campo "Citação" deve ter entre 25 e 255 caracteres');
+      formErrors = true;
+    }
+
+    if (formErrors) return;
+  }
+
   return (
     <Container>
       <Titulo>{idLivro ? 'Editar livro' : 'Novo livro'}</Titulo>
       <Loading isLoading={isLoading} />
-      <Form onSubmit="###">
+      <Form onSubmit={handleSubmit}>
         <label htmlFor="titulo">
           Título
           <input
@@ -66,7 +106,7 @@ export default function Livro({ match }) {
             onChange={(e) => setAutor(e.target.value)}
           />
         </label>
-        <label htmlFor="localizacao">
+        <label htmlFor="ano">
           Ano
           <input
             type="text"
@@ -74,15 +114,15 @@ export default function Livro({ match }) {
             onChange={(e) => setAno(e.target.value)}
           />
         </label>
-        <label htmlFor="editora">
-          Localização
+        <label htmlFor="localizacao">
+          Localização da publicação
           <input
             type="text"
             value={localizacao}
             onChange={(e) => setLocalizacao(e.target.value)}
           />
         </label>
-        <label htmlFor="citacao">
+        <label htmlFor="editora">
           Editora
           <input
             type="text"
@@ -90,7 +130,7 @@ export default function Livro({ match }) {
             onChange={(e) => setEditora(e.target.value)}
           />
         </label>
-        <label htmlFor="ano">
+        <label htmlFor="citacao">
           Citação
           <input
             type="text"
@@ -98,6 +138,7 @@ export default function Livro({ match }) {
             onChange={(e) => setCitacao(e.target.value)}
           />
         </label>
+        <button type="submit">Salvar</button>
       </Form>
     </Container>
   );

@@ -2,12 +2,13 @@
 /* eslint-disable prettier/prettier */
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEye, FaSearch } from 'react-icons/fa';
+import { FaEdit, FaEye, FaSearch } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
 import {
+  Editar,
   FiltroPesquisa,
   Form,
   Tabela,
@@ -125,6 +126,9 @@ export default function Livros() {
             <th>
               <FaEye />
             </th>
+            <th>
+              <FaEdit />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -135,9 +139,14 @@ export default function Livros() {
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
               <td>
-                <Visualizar to={`/livro/${livro.id}`}>
+                <Visualizar >
                   <FaEye />
                 </Visualizar>
+              </td>
+              <td>
+                <Editar to={`/livro/${livro.id}`}>
+                  <FaEdit />
+                </Editar>
               </td>
             </tr>
           ))}

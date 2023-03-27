@@ -9,11 +9,11 @@ export const Titulo = styled.h1`
 
 export const Form = styled.form`
   margin-top: 40px;
-  margin-bottom: 0px;
+  margin-bottom: 20px;
 
   label {
     width: 50px;
-    font-size: 22px;
+    font-size: 20px;
   }
 
   input {
@@ -34,7 +34,9 @@ export const Form = styled.form`
   }
 
   button {
-    width: 40px;
+    font-size: 16px;
+    margin-top: 20px;
+    width: 100%;
     margin-left: 10px;
     padding: 0 10px;
     height: 40px;
