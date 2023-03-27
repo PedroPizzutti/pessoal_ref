@@ -2,13 +2,17 @@
 import { get, isInteger } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
+import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
 
 export default function Livro({ match }) {
+  const dispatch = useDispatch();
+
   const idLivro = get(match, 'params.id', '');
 
   const [titulo, setTitulo] = useState('');
@@ -82,6 +86,21 @@ export default function Livro({ match }) {
     }
 
     if (formErrors) return;
+
+    try {
+      // codar o post e o put
+    } catch (err) {
+      const status = get(err, 'response.status', 0);
+      const errors = get(err, 'response.data.erros', []);
+
+      if (errors.length > 0) {
+        errors.map((error) => toast.error(error));
+      } else {
+        toast.error('Erro desconhecido');
+      }
+
+      if (status === 401) dispatch(actions.loginFailure());
+    }
   }
 
   return (
