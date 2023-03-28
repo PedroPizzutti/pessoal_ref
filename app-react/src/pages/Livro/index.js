@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
+import history from '../../services/history';
 import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
@@ -63,7 +64,7 @@ export default function Livro({ match }) {
       formErrors = true;
     }
 
-    if (isInteger(ano)) {
+    if (isInteger(String(ano))) {
       toast.error('Campo "Ano" deve ser um número inteiro');
       formErrors = true;
     }
@@ -80,7 +81,7 @@ export default function Livro({ match }) {
       formErrors = true;
     }
 
-    if (editora.length < 25 || editora.length > 255) {
+    if (citacao.length < 25 || editora.length > 255) {
       toast.error('Campo "Citação" deve ter entre 25 e 255 caracteres');
       formErrors = true;
     }
@@ -88,7 +89,31 @@ export default function Livro({ match }) {
     if (formErrors) return;
 
     try {
-      // codar o post e o put
+      setIsLoading(true);
+
+      if (idLivro) {
+        await axios.put(`/livros/${idLivro}`, {
+          autor,
+          titulo,
+          ano,
+          localizacao,
+          editora,
+          citacao,
+        });
+        toast.success('Livro atualizado!');
+      } else {
+        await axios.post(`/livros/`, {
+          autor,
+          titulo,
+          ano,
+          localizacao,
+          editora,
+          citacao,
+        });
+        toast.success('Livro criado!');
+      }
+      history.push('/livros');
+      setIsLoading(false);
     } catch (err) {
       const status = get(err, 'response.status', 0);
       const errors = get(err, 'response.data.erros', []);
@@ -99,6 +124,7 @@ export default function Livro({ match }) {
         toast.error('Erro desconhecido');
       }
 
+      setIsLoading(false);
       if (status === 401) dispatch(actions.loginFailure());
     }
   }
