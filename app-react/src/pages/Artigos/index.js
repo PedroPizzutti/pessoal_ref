@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
-import { FaEye, FaSearch } from 'react-icons/fa';
+import { FaEdit, FaEye, FaSearch } from 'react-icons/fa';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  FiltroPesquisa,
+  Editar, FiltroPesquisa,
   Form,
   Tabela,
   Titulo,
@@ -115,6 +115,9 @@ export default function Artigos() {
             <th>
               <FaEye />
             </th>
+            <th>
+              <FaEdit />
+            </th>
           </tr>
         </thead>
         <tbody>
@@ -128,6 +131,11 @@ export default function Artigos() {
                 <Visualizar to={`/artigo/${artigo.id}`}>
                   <FaEye />
                 </Visualizar>
+              </td>
+              <td>
+                <Editar to={`/artigo/${artigo.id}`}>
+                  <FaEdit />
+                </Editar>
               </td>
             </tr>
           ))}

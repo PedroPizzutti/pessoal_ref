@@ -81,7 +81,7 @@ export default function Livro({ match }) {
       formErrors = true;
     }
 
-    if (citacao.length < 25 || editora.length > 255) {
+    if (citacao.length < 25 || citacao.length > 255) {
       toast.error('Campo "Citação" deve ter entre 25 e 255 caracteres');
       formErrors = true;
     }
@@ -154,7 +154,7 @@ export default function Livro({ match }) {
         <label htmlFor="ano">
           Ano
           <input
-            type="text"
+            type="number"
             value={ano}
             onChange={(e) => setAno(e.target.value)}
           />
@@ -176,7 +176,7 @@ export default function Livro({ match }) {
           />
         </label>
         <label htmlFor="citacao">
-          Citação
+          Referência
           <input
             type="text"
             value={citacao}
