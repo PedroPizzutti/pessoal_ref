@@ -2,14 +2,15 @@
 /* eslint-disable prettier/prettier */
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaEye, FaSearch } from 'react-icons/fa';
+import { FaEdit, FaExclamation, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
+import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  Editar,
-  FiltroPesquisa,
+  Editar, Excluir, FiltroPesquisa,
   Form,
   Tabela,
   Titulo,
@@ -17,6 +18,8 @@ import {
 } from './styled';
 
 export default function Livros() {
+  const dispatch = useDispatch();
+
   const [palavraPesquisa, setPalavraPesquisa] = useState('');
   const [filtroTitulo, setfiltroTitulo] = useState(false);
   const [filtroAutor, setfiltroAutor] = useState(false);
@@ -41,6 +44,38 @@ export default function Livros() {
 
     getData();
   }, []);
+
+  function handleAskDelete(e) {
+    e.preventDefault();
+    const exclamation = e.currentTarget.nextSibling;
+    exclamation.setAttribute('display', 'block');
+    e.currentTarget.remove();
+  };
+
+  async function handleDelete(e, id, index) {
+    e.persist();
+    setIsLoading(true);
+    try {
+      await axios.delete(`livros/${id}`);
+      const listaLivros = [...livros];
+      listaLivros.splice(index, 1);
+      setLivros(listaLivros);
+      toast.success('Livro excluído!');
+      setIsLoading(false);
+    } catch (err) {
+      const status = get(err, 'response.status', 0);
+      const errors = get(err, 'response.data.erros', []);
+
+      if (errors.lenght > 0) {
+        errors.map((error) => toast.error(error));
+      } else {
+        toast.error('Erro desconhecido');
+      }
+
+      if (status === 401) dispatch(actions.loginFailure());
+      setIsLoading(false);
+    }
+  }
 
   async function handlePesquisar(e) {
     e.preventDefault();
@@ -78,7 +113,7 @@ export default function Livros() {
     })
     setLivros(response.data);
     setIsLoading(false);
-  }
+  };
 
   return (
     <Container>
@@ -129,10 +164,13 @@ export default function Livros() {
             <th>
               <FaEdit />
             </th>
+            <th>
+              <FaWindowClose />
+            </th>
           </tr>
         </thead>
         <tbody>
-          {livros.map((livro) => (
+          {livros.map((livro, index) => (
             <tr key={String(livro.id)}>
               <td>{livro.id}</td>
               <td>{livro.ano}</td>
@@ -147,6 +185,13 @@ export default function Livros() {
                 <Editar to={`/livro/${livro.id}`}>
                   <FaEdit />
                 </Editar>
+              </td>
+              <td>
+                <Excluir onClick={handleAskDelete} to="###">
+                <FaWindowClose />
+                </Excluir>
+
+                <FaExclamation display="none" cursor="pointer" onClick={(e) => handleDelete(e, livro.id, index)}/>
               </td>
             </tr>
           ))}
