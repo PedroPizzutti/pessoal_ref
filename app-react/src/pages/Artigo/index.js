@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
-import { get, isInteger } from 'lodash';
+import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { isInt } from 'validator';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
@@ -68,7 +69,7 @@ export default function Artigo({ match }) {
       formErrors = true;
     }
 
-    if (!isInteger(String(ano))) {
+    if (!isInt(String(ano))) {
       toast.error('Campo "Ano" deve ser um número inteiro');
       formErrors = true;
     }
@@ -78,7 +79,7 @@ export default function Artigo({ match }) {
       formErrors = true;
     }
 
-    if (!isInteger(String(volume))) {
+    if (!isInt(String(volume))) {
       toast.error('Campo "Volume" deve ser um número inteiro');
       formErrors = true;
     }
@@ -88,7 +89,7 @@ export default function Artigo({ match }) {
       formErrors = true;
     }
 
-    if (!isInteger(String(numero))) {
+    if (!isInt(String(numero))) {
       toast.error('Campo "Número" deve ser um número inteiro');
       formErrors = true;
     }
@@ -99,7 +100,7 @@ export default function Artigo({ match }) {
     }
 
     if (citacao.length < 25 || citacao.length > 255) {
-      toast.error('Campo "Citação" deve ter entre 25 e 255 caracteres');
+      toast.error('Campo "Referência" deve ter entre 25 e 255 caracteres');
       formErrors = true;
     }
 
@@ -175,7 +176,7 @@ export default function Artigo({ match }) {
         <label htmlFor="ano">
           Ano
           <input
-            type="text"
+            type="number"
             value={ano}
             onChange={(e) => setAno(e.target.value)}
           />
@@ -191,7 +192,7 @@ export default function Artigo({ match }) {
         <label htmlFor="volume">
           Volume
           <input
-            type="text"
+            type="number"
             value={volume}
             onChange={(e) => setVolume(e.target.value)}
           />
@@ -199,7 +200,7 @@ export default function Artigo({ match }) {
         <label htmlFor="numero">
           Numero
           <input
-            type="text"
+            type="number"
             value={numero}
             onChange={(e) => setNumero(e.target.value)}
           />

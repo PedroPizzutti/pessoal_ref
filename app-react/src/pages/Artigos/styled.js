@@ -46,7 +46,7 @@ export const Form = styled.form`
 
 export const Tabela = styled.table`
   width: 100%;
-  margin-top: 5px;
+  margin-top: 40px;
   border-collapse: collapse;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 

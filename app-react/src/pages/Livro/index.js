@@ -1,9 +1,10 @@
 /* eslint-disable react/jsx-no-bind */
-import { get, isInteger } from 'lodash';
+import { get } from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+import { isInt } from 'validator';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
 import history from '../../services/history';
@@ -64,7 +65,7 @@ export default function Livro({ match }) {
       formErrors = true;
     }
 
-    if (isInteger(String(ano))) {
+    if (!isInt(String(ano))) {
       toast.error('Campo "Ano" deve ser um número inteiro');
       formErrors = true;
     }
@@ -82,7 +83,7 @@ export default function Livro({ match }) {
     }
 
     if (citacao.length < 25 || citacao.length > 255) {
-      toast.error('Campo "Citação" deve ter entre 25 e 255 caracteres');
+      toast.error('Campo "Referência" deve ter entre 25 e 255 caracteres');
       formErrors = true;
     }
 
