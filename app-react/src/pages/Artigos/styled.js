@@ -103,3 +103,9 @@ export const Editar = styled(Link)`
     color: ${cores.corEscuraPrincipal};
   }
 `;
+
+export const Excluir = styled(Link)`
+  &:hover {
+    color: ${cores.corEscuraPrincipal};
+  }
+`;

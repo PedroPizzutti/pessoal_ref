@@ -2,10 +2,11 @@
 /* eslint-disable prettier/prettier */
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaExclamation, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { FaEdit, FaExclamationCircle, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
+import * as cores from '../../config/colors';
 import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
@@ -188,10 +189,10 @@ export default function Livros() {
               </td>
               <td>
                 <Excluir onClick={handleAskDelete} to="###">
-                <FaWindowClose />
+                  <FaWindowClose />
                 </Excluir>
 
-                <FaExclamation display="none" cursor="pointer" onClick={(e) => handleDelete(e, livro.id, index)}/>
+                <FaExclamationCircle display="none" cursor="pointer" color={cores.corAdvertencia} onClick={(e) => handleDelete(e, livro.id, index)}/>
               </td>
             </tr>
           ))}

@@ -1,12 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable prettier/prettier */
+import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaEye, FaSearch } from 'react-icons/fa';
+import { FaEdit, FaExclamationCircle, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
+import * as cores from '../../config/colors';
 import axios from '../../services/axios';
+import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  Editar, FiltroPesquisa,
+  Editar, Excluir, FiltroPesquisa,
   Form,
   Tabela,
   Titulo,
@@ -14,6 +19,8 @@ import {
 } from './styled';
 
 export default function Artigos() {
+  const dispatch = useDispatch();
+
   const [palavraPesquisa, setPalavraPesquisa] = useState('');
   const [filtroTitulo, setfiltroTitulo] = useState(false);
   const [filtroAutor, setfiltroAutor] = useState(false);
@@ -30,6 +37,38 @@ export default function Artigos() {
 
     getData();
   }, []);
+
+  function handleAskDelete(e) {
+    e.preventDefault();
+    const exclamation = e.currentTarget.nextSibling;
+    exclamation.setAttribute('display', 'block');
+    e.currentTarget.remove();
+  }
+
+  async function handleDelete(e, id, index) {
+    e.persist();
+    setIsLoading(true);
+    try {
+      await axios.delete(`artigos/${id}`);
+      const listaArtigos = [...artigos];
+      listaArtigos.splice(index, 1);
+      setArtigos(listaArtigos);
+      toast.success('Artigo excluído!');
+      setIsLoading(false);
+    } catch (err) {
+      const status = get(err, 'reponse.status', 0);
+      const errors = get(err, 'reponse.data.erros', []);
+
+      if (errors.lenght > 0) {
+        errors.map((error) => toast.error(error));
+      } else {
+        toast.error('Erro desconhecido');
+      }
+
+      if (status === 401) dispatch(actions.loginFailure());
+      setIsLoading(false);
+    }
+  }
 
   async function handlePesquisar(e) {
     e.preventDefault();
@@ -118,10 +157,13 @@ export default function Artigos() {
             <th>
               <FaEdit />
             </th>
+            <th>
+              <FaWindowClose />
+            </th>
           </tr>
         </thead>
         <tbody>
-          {artigos.map((artigo) => (
+          {artigos.map((artigo, index) => (
             <tr key={String(artigo.id)}>
               <td>{artigo.id}</td>
               <td>{artigo.ano}</td>
@@ -136,6 +178,13 @@ export default function Artigos() {
                 <Editar to={`/artigo/${artigo.id}`}>
                   <FaEdit />
                 </Editar>
+              </td>
+              <td>
+                <Excluir onClick={handleAskDelete} to="###">
+                  <FaWindowClose />
+                </Excluir>
+
+                <FaExclamationCircle display="none" cursor="pointer" color={cores.corAdvertencia} onClick={(e) => handleDelete(e, artigo.id, index)}/>
               </td>
             </tr>
           ))}
