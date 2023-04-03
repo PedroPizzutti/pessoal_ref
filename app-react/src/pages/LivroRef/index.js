@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
 import axios from '../../services/axios';
+import history from '../../services/history';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
 
@@ -37,20 +38,21 @@ export default function Livro({ match }) {
         toast.error(`Problema ao carregar o livro ${erros}`);
       }
     }
-
     getData();
-  }, [idLivro]);
 
-  function handleCopy() {
+    setIsLoading(true);
     const clipboard = new Clipboard('.copy-button');
-
     clipboard.on('success', () => {
       toast.success('Texto copiado!');
+      clipboard.destroy();
+      history.push('/livros');
     });
     clipboard.on('error', () => {
       toast.error('Erro ao copiar texto!');
+      clipboard.destroy();
     });
-  }
+    setIsLoading(false);
+  }, [idLivro]);
 
   return (
     <Container>
@@ -81,7 +83,6 @@ export default function Livro({ match }) {
           className="copy-button"
           data-clipboard-target="#textToCopy"
           data-clipboard-text={textoCopiar}
-          onClick={handleCopy}
         >
           Copiar referência
         </button>
