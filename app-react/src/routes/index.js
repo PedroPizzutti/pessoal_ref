@@ -4,6 +4,7 @@ import { Switch } from 'react-router-dom';
 import Artigo from '../pages/Artigo';
 import Artigos from '../pages/Artigos';
 import Livro from '../pages/Livro';
+import LivroRef from '../pages/LivroRef';
 import Livros from '../pages/Livros';
 import Login from '../pages/Login';
 import Page404 from '../pages/Page404';
@@ -25,6 +26,7 @@ export default function Routes() {
       <PrivateRoute exact path="/livros" component={Livros} isClosed />
       <PrivateRoute exact path="/livro" component={Livro} isClosed />
       <PrivateRoute exact path="/livro/:id" component={Livro} isClosed />
+      <PrivateRoute exact path="/livro/ref/:id" component={LivroRef} isClosed />
       <PrivateRoute exact path="/artigos" component={Artigos} isClosed />
       <PrivateRoute exact path="/artigo" component={Artigo} isClosed />
       <PrivateRoute exact path="/artigo/:id" component={Artigo} isClosed />

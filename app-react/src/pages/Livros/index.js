@@ -137,7 +137,7 @@ export default function Livros() {
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
               <td>
-                <Visualizar >
+                <Visualizar to={`/livro/ref/${livro.id}`} >
                   <FaEye />
                 </Visualizar>
               </td>
@@ -147,7 +147,7 @@ export default function Livros() {
                 </Editar>
               </td>
               <td>
-                <Excluir onClick={handleAskDelete} to="###">
+                <Excluir onClick={handleAskDelete} to="/livros">
                   <FaWindowClose />
                 </Excluir>
 
