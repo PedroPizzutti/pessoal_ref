@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-no-bind */
 import Clipboard from 'clipboard';
 import { get } from 'lodash';
@@ -36,7 +35,7 @@ export default function ArtigoRef({ match }) {
       } catch (error) {
         setIsLoading(false);
         const erros = get(error, 'response.data.erros', []);
-        toast.error(`Problema ao carregar o livro ${erros}`);
+        toast.error(`Problema ao carregar o artigo ${erros}`);
       }
     }
     getData();
@@ -46,7 +45,7 @@ export default function ArtigoRef({ match }) {
     clipboard.on('success', () => {
       toast.success('Texto copiado!');
       clipboard.destroy();
-      history.push('/livros');
+      history.push('/artigos');
     });
     clipboard.on('error', () => {
       toast.error('Erro ao copiar texto!');
@@ -57,7 +56,7 @@ export default function ArtigoRef({ match }) {
 
   return (
     <Container>
-      <Titulo>{idArtigo ? 'Editar artigo' : 'Novo artigo'}</Titulo>
+      <Titulo>Referência artigo</Titulo>
       <Loading isLoading={isLoading} />
       <Form>
         <label htmlFor="titulo">
@@ -73,7 +72,7 @@ export default function ArtigoRef({ match }) {
         <label htmlFor="citacao">
           Referência
           <input
-            id="textoToCopy"
+            id="textToCopy"
             readOnly
             type="text"
             value={citacao}

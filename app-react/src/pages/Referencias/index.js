@@ -12,10 +12,12 @@ export default function Referencias() {
         <Paragrafo>O que você gostaria de fazer?</Paragrafo>
       </Divisoria>
       <Divisoria>
-        <LinkEstilizado to="/livro">Adicionar um livro</LinkEstilizado>
-        <LinkEstilizado to="/artigo">Adicionar um artigo</LinkEstilizado>
         <LinkEstilizado to="/livros">Consultar meus livros</LinkEstilizado>
         <LinkEstilizado to="/artigos">Consultar meus artigos</LinkEstilizado>
+      </Divisoria>
+      <Divisoria>
+        <LinkEstilizado to="/livro">Adicionar um livro</LinkEstilizado>
+        <LinkEstilizado to="/artigo">Adicionar um artigo</LinkEstilizado>
       </Divisoria>
     </Container>
   );

@@ -22,6 +22,10 @@ export const LinkEstilizado = styled(Link)`
   font-size: 18px;
   margin-top: 10px;
   margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40%;
   background: ${cores.corPrincipal};
   color: #fff;
   padding: 10px;

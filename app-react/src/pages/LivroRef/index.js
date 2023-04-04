@@ -10,7 +10,7 @@ import history from '../../services/history';
 import { Container } from '../../styles/GlobalStyles';
 import { Form, Titulo } from './styled';
 
-export default function Livro({ match }) {
+export default function LivroRef({ match }) {
   const idLivro = get(match, 'params.id', '');
 
   const [titulo, setTitulo] = useState('');
@@ -91,6 +91,6 @@ export default function Livro({ match }) {
   );
 }
 
-Livro.propTypes = {
+LivroRef.propTypes = {
   match: PropTypes.shape({}).isRequired,
 };
