@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-no-bind */
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -50,6 +51,66 @@ export default function Livro({ match }) {
 
     getData();
   }, [idLivro]);
+
+  function handleTitulo(e) {
+    setTitulo(e.target.value);
+  }
+
+  function handleAutor(e) {
+    setAutor(e.target.value);
+  }
+
+  function handleAno(e) {
+    setAno(e.target.value);
+  }
+
+  function handleLocalizacao(e) {
+    setLocalizacao(e.target.value);
+  }
+
+  function handleEditora(e) {
+    setEditora(e.target.value);
+  }
+
+  function handleCitacao(e) {
+    e.preventDefault();
+
+    if (titulo.length > 0) {
+      setCitacao('');
+      setCitacao(`${titulo} .`);
+    }
+
+    let nomeAbrev = '';
+    if (autor.length > 0) {
+      setCitacao('');
+      const namesAutor = autor.split(' ');
+      const lastName = `${namesAutor[namesAutor.length - 1].toUpperCase()}, `;
+
+      let initials = '';
+      for (let i = 0; i < namesAutor.length - 1; i++) {
+        const name = namesAutor[i];
+        const initialName = name[0];
+        initials = `${initials + initialName.toUpperCase()}. `;
+      }
+      nomeAbrev = lastName + initials;
+      setCitacao(`${nomeAbrev + titulo}`);
+    }
+
+    if (ano.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${ano}.`);
+    }
+
+    if (localizacao.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${localizacao}: ${ano}.`);
+    }
+
+    if (editora.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${localizacao}: ${editora}, ${ano}.`);
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -140,7 +201,8 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
+            onChange={handleTitulo}
+            onBlur={handleCitacao}
           />
         </label>
         <br />
@@ -149,7 +211,8 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={autor}
-            onChange={(e) => setAutor(e.target.value)}
+            onChange={handleAutor}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="ano">
@@ -157,7 +220,8 @@ export default function Livro({ match }) {
           <input
             type="number"
             value={ano}
-            onChange={(e) => setAno(e.target.value)}
+            onChange={handleAno}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="localizacao">
@@ -165,7 +229,8 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={localizacao}
-            onChange={(e) => setLocalizacao(e.target.value)}
+            onChange={handleLocalizacao}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="editora">
@@ -173,16 +238,13 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={editora}
-            onChange={(e) => setEditora(e.target.value)}
+            onChange={handleEditora}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="citacao">
           Referência
-          <input
-            type="text"
-            value={citacao}
-            onChange={(e) => setCitacao(e.target.value)}
-          />
+          <input type="text" value={citacao} readOnly />
         </label>
         <button type="submit">Salvar</button>
       </Form>

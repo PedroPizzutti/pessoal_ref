@@ -2,7 +2,7 @@
 /* eslint-disable prettier/prettier */
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaExclamationCircle, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { FaCopy, FaEdit, FaExclamationCircle, FaSearch, FaWindowClose } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
@@ -119,7 +119,7 @@ export default function Livros() {
             <th>Autor(a)</th>
             <th>Título</th>
             <th>
-              <FaEye />
+              <FaCopy />
             </th>
             <th>
               <FaEdit />
@@ -138,7 +138,7 @@ export default function Livros() {
               <td>{livro.titulo}</td>
               <td>
                 <Visualizar to={`/livro/ref/${livro.id}`} >
-                  <FaEye />
+                  <FaCopy />
                 </Visualizar>
               </td>
               <td>
