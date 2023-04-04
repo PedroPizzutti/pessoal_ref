@@ -52,26 +52,6 @@ export default function Livro({ match }) {
     getData();
   }, [idLivro]);
 
-  function handleTitulo(e) {
-    setTitulo(e.target.value);
-  }
-
-  function handleAutor(e) {
-    setAutor(e.target.value);
-  }
-
-  function handleAno(e) {
-    setAno(e.target.value);
-  }
-
-  function handleLocalizacao(e) {
-    setLocalizacao(e.target.value);
-  }
-
-  function handleEditora(e) {
-    setEditora(e.target.value);
-  }
-
   function handleCitacao(e) {
     e.preventDefault();
 
@@ -201,7 +181,7 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={titulo}
-            onChange={handleTitulo}
+            onChange={(e) => setTitulo(e.target.value)}
             onBlur={handleCitacao}
           />
         </label>
@@ -211,7 +191,7 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={autor}
-            onChange={handleAutor}
+            onChange={(e) => setAutor(e.target.value)}
             onBlur={handleCitacao}
           />
         </label>
@@ -220,7 +200,7 @@ export default function Livro({ match }) {
           <input
             type="number"
             value={ano}
-            onChange={handleAno}
+            onChange={(e) => setAno(e.target.value)}
             onBlur={handleCitacao}
           />
         </label>
@@ -229,7 +209,7 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={localizacao}
-            onChange={handleLocalizacao}
+            onChange={(e) => setLocalizacao(e.target.value)}
             onBlur={handleCitacao}
           />
         </label>
@@ -238,13 +218,17 @@ export default function Livro({ match }) {
           <input
             type="text"
             value={editora}
-            onChange={handleEditora}
+            onChange={(e) => setEditora(e.target.value)}
             onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="citacao">
           Referência
-          <input type="text" value={citacao} readOnly />
+          <input
+            type="text"
+            value={citacao}
+            onChange={(e) => setCitacao(e.target.value)}
+          />
         </label>
         <button type="submit">Salvar</button>
       </Form>

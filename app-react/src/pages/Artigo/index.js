@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable react/jsx-no-bind */
 import { get } from 'lodash';
 import PropTypes from 'prop-types';
@@ -54,6 +55,62 @@ export default function Artigo({ match }) {
 
     getData();
   }, [idArtigo]);
+
+  function handleCitacao(e) {
+    e.preventDefault();
+
+    if (titulo.length > 0) {
+      setCitacao('');
+      setCitacao(`${titulo} .`);
+    }
+
+    let nomeAbrev = '';
+    if (autor.length > 0) {
+      setCitacao('');
+      const namesAutor = autor.split(' ');
+      const lastName = `${namesAutor[namesAutor.length - 1].toUpperCase()}, `;
+
+      let initials = '';
+      for (let i = 0; i < namesAutor.length - 1; i++) {
+        const name = namesAutor[i];
+        const initialName = name[0];
+        initials = `${initials + initialName.toUpperCase()}. `;
+      }
+      nomeAbrev = lastName + initials;
+      setCitacao(`${nomeAbrev + titulo}`);
+    }
+
+    if (ano.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${ano}.`);
+    }
+
+    if (revista.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${revista}, ${ano}.`);
+    }
+
+    if (volume.length > 0) {
+      setCitacao('');
+      setCitacao(`${nomeAbrev + titulo}. ${revista}, v.${volume}, ${ano}.`);
+    }
+
+    if (numero.length > 0) {
+      setCitacao('');
+      setCitacao(
+        `${nomeAbrev + titulo}. ${revista}, v.${volume}, n.${numero}, ${ano}.`
+      );
+    }
+
+    if (paginacao.length > 0) {
+      setCitacao('');
+      setCitacao(
+        `${
+          nomeAbrev + titulo
+        }. ${revista}, v.${volume}, n.${numero}, p.${paginacao},  ${ano}.`
+      );
+    }
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -162,6 +219,7 @@ export default function Artigo({ match }) {
             type="text"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <br />
@@ -171,6 +229,7 @@ export default function Artigo({ match }) {
             type="text"
             value={autor}
             onChange={(e) => setAutor(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="ano">
@@ -179,6 +238,7 @@ export default function Artigo({ match }) {
             type="number"
             value={ano}
             onChange={(e) => setAno(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="revista">
@@ -187,6 +247,7 @@ export default function Artigo({ match }) {
             type="text"
             value={revista}
             onChange={(e) => setRevista(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="volume">
@@ -195,6 +256,7 @@ export default function Artigo({ match }) {
             type="number"
             value={volume}
             onChange={(e) => setVolume(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="numero">
@@ -203,6 +265,7 @@ export default function Artigo({ match }) {
             type="number"
             value={numero}
             onChange={(e) => setNumero(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="paginacao">
@@ -211,6 +274,7 @@ export default function Artigo({ match }) {
             type="text"
             value={paginacao}
             onChange={(e) => setPaginacao(e.target.value)}
+            onBlur={handleCitacao}
           />
         </label>
         <label htmlFor="citacao">

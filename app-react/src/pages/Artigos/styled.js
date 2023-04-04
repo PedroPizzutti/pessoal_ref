@@ -92,7 +92,7 @@ export const FiltroPesquisa = styled.div`
   }
 `;
 
-export const Visualizar = styled(Link)`
+export const Copiar = styled(Link)`
   &:hover {
     color: ${cores.corEscuraPrincipal};
   }

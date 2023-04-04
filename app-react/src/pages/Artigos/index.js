@@ -2,7 +2,7 @@
 /* eslint-disable prettier/prettier */
 import { get } from 'lodash';
 import React, { useEffect, useState } from 'react';
-import { FaEdit, FaExclamationCircle, FaEye, FaSearch, FaWindowClose } from 'react-icons/fa';
+import { FaCopy, FaEdit, FaExclamationCircle, FaSearch, FaWindowClose } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import Loading from '../../components/Loading';
@@ -11,10 +11,9 @@ import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  Editar, Excluir, Form,
+  Copiar, Editar, Excluir, Form,
   Tabela,
-  Titulo,
-  Visualizar
+  Titulo
 } from './styled';
 
 export default function Artigos() {
@@ -112,7 +111,7 @@ export default function Artigos() {
             <th>Autor(a)</th>
             <th>Título</th>
             <th>
-              <FaEye />
+              <FaCopy />
             </th>
             <th>
               <FaEdit />
@@ -130,9 +129,9 @@ export default function Artigos() {
               <td>{artigo.autor}</td>
               <td>{artigo.titulo}</td>
               <td>
-                <Visualizar to={`/artigo/${artigo.id}`}>
-                  <FaEye />
-                </Visualizar>
+                <Copiar to={`/artigo/ref/${artigo.id}`}>
+                  <FaCopy />
+                </Copiar>
               </td>
               <td>
                 <Editar to={`/artigo/${artigo.id}`}>

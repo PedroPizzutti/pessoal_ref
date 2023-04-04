@@ -2,6 +2,7 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 
 import Artigo from '../pages/Artigo';
+import ArtigoRef from '../pages/ArtigoRef';
 import Artigos from '../pages/Artigos';
 import Livro from '../pages/Livro';
 import LivroRef from '../pages/LivroRef';
@@ -30,6 +31,12 @@ export default function Routes() {
       <PrivateRoute exact path="/artigos" component={Artigos} isClosed />
       <PrivateRoute exact path="/artigo" component={Artigo} isClosed />
       <PrivateRoute exact path="/artigo/:id" component={Artigo} isClosed />
+      <PrivateRoute
+        exact
+        path="/artigo/ref/:id"
+        component={ArtigoRef}
+        isClosed
+      />
       <PrivateRoute path="*" component={Page404} />
     </Switch>
   );

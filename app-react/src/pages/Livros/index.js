@@ -11,10 +11,9 @@ import axios from '../../services/axios';
 import * as actions from '../../store/modules/auth/actions';
 import { Container } from '../../styles/GlobalStyles';
 import {
-  Editar, Excluir, Form,
+  Copiar, Editar, Excluir, Form,
   Tabela,
-  Titulo,
-  Visualizar
+  Titulo
 } from './styled';
 
 export default function Livros() {
@@ -137,9 +136,9 @@ export default function Livros() {
               <td>{livro.autor}</td>
               <td>{livro.titulo}</td>
               <td>
-                <Visualizar to={`/livro/ref/${livro.id}`} >
+                <Copiar to={`/livro/ref/${livro.id}`} >
                   <FaCopy />
-                </Visualizar>
+                </Copiar>
               </td>
               <td>
                 <Editar to={`/livro/${livro.id}`}>
