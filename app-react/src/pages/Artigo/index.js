@@ -64,41 +64,66 @@ export default function Artigo({ match }) {
       setCitacao(`${titulo} .`);
     }
 
-    let nomeAbrev = '';
+    let nomesAutoresFormatados = '';
     if (autor.length > 0) {
       setCitacao('');
-      const namesAutor = autor.split(' ');
-      const lastName = `${namesAutor[namesAutor.length - 1].toUpperCase()}, `;
-
-      let initials = '';
-      for (let i = 0; i < namesAutor.length - 1; i++) {
-        const name = namesAutor[i];
-        const initialName = name[0];
-        initials = `${initials + initialName.toUpperCase()}. `;
+      if (autor.includes('&')) {
+        const autores = autor.split('&');
+        for (let i = 0; i < autores.length; i++) {
+          const nomesAutor = autores[i].trim().split(' ');
+          const sobrenomeAutor = `${nomesAutor[
+            nomesAutor.length - 1
+          ].toUpperCase()},`;
+          let inicias = '';
+          for (let j = 0; j < nomesAutor.length - 1; j++) {
+            const nome = nomesAutor[j];
+            const primeiraLetraNome = nome[0];
+            inicias = `${inicias + primeiraLetraNome.toUpperCase()}. `;
+          }
+          inicias = `${inicias.trim()} &`;
+          nomesAutoresFormatados = `${nomesAutoresFormatados} ${sobrenomeAutor} ${inicias}`;
+        }
+        nomesAutoresFormatados = nomesAutoresFormatados.trim().slice(0, -1);
+      } else {
+        let inicias = '';
+        const nomesAutor = autor.trim().split(' ');
+        const sobrenomeAutor = `${nomesAutor[
+          nomesAutor.length - 1
+        ].toUpperCase()}, `;
+        for (let j = 0; j < nomesAutor.length - 1; j++) {
+          const nome = nomesAutor[j];
+          const primeiraLetraNome = nome[0];
+          inicias = `${inicias + primeiraLetraNome.toUpperCase()}. `;
+        }
+        nomesAutoresFormatados =
+          nomesAutoresFormatados + sobrenomeAutor + inicias;
       }
-      nomeAbrev = lastName + initials;
-      setCitacao(`${nomeAbrev + titulo}`);
+      setCitacao(`${nomesAutoresFormatados + titulo}`);
     }
 
     if (ano.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${ano}.`);
+      setCitacao(`${nomesAutoresFormatados + titulo}. ${ano}.`);
     }
 
     if (revista.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${revista}, ${ano}.`);
+      setCitacao(`${nomesAutoresFormatados + titulo}. ${revista}, ${ano}.`);
     }
 
     if (volume.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${revista}, v.${volume}, ${ano}.`);
+      setCitacao(
+        `${nomesAutoresFormatados + titulo}. ${revista}, v.${volume}, ${ano}.`
+      );
     }
 
     if (numero.length > 0) {
       setCitacao('');
       setCitacao(
-        `${nomeAbrev + titulo}. ${revista}, v.${volume}, n.${numero}, ${ano}.`
+        `${
+          nomesAutoresFormatados + titulo
+        }. ${revista}, v.${volume}, n.${numero}, ${ano}.`
       );
     }
 
@@ -106,7 +131,7 @@ export default function Artigo({ match }) {
       setCitacao('');
       setCitacao(
         `${
-          nomeAbrev + titulo
+          nomesAutoresFormatados + titulo
         }. ${revista}, v.${volume}, n.${numero}, p.${paginacao},  ${ano}.`
       );
     }
@@ -216,6 +241,7 @@ export default function Artigo({ match }) {
         <label htmlFor="titulo">
           Título
           <input
+            placeholder="Insira o título do artigo"
             type="text"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
@@ -226,6 +252,7 @@ export default function Artigo({ match }) {
         <label htmlFor="autor">
           Autor(a)
           <input
+            placeholder='Em caso de mais de um(a) autor(a), separe utilizando "&" '
             type="text"
             value={autor}
             onChange={(e) => setAutor(e.target.value)}
@@ -235,6 +262,7 @@ export default function Artigo({ match }) {
         <label htmlFor="ano">
           Ano
           <input
+            placeholder="Insira o ano de publicação do artigo"
             type="number"
             value={ano}
             onChange={(e) => setAno(e.target.value)}
@@ -244,6 +272,7 @@ export default function Artigo({ match }) {
         <label htmlFor="revista">
           Revista
           <input
+            placeholder="Insira a revista em que o artigo foi publicado"
             type="text"
             value={revista}
             onChange={(e) => setRevista(e.target.value)}
@@ -253,6 +282,7 @@ export default function Artigo({ match }) {
         <label htmlFor="volume">
           Volume
           <input
+            placeholder="Insira o volume da revista caso tenha"
             type="number"
             value={volume}
             onChange={(e) => setVolume(e.target.value)}
@@ -260,8 +290,9 @@ export default function Artigo({ match }) {
           />
         </label>
         <label htmlFor="numero">
-          Numero
+          Número
           <input
+            placeholder="Insira o número da revista caso tenha"
             type="number"
             value={numero}
             onChange={(e) => setNumero(e.target.value)}
@@ -271,6 +302,7 @@ export default function Artigo({ match }) {
         <label htmlFor="paginacao">
           Paginação
           <input
+            placeholder='Insira a paginação em formato "p.99-99" caso tenha'
             type="text"
             value={paginacao}
             onChange={(e) => setPaginacao(e.target.value)}
@@ -280,6 +312,7 @@ export default function Artigo({ match }) {
         <label htmlFor="citacao">
           Referência
           <input
+            placeholder="A referência é gerada automaticamente em padrão ABNT"
             type="text"
             value={citacao}
             onChange={(e) => setCitacao(e.target.value)}

@@ -60,35 +60,60 @@ export default function Livro({ match }) {
       setCitacao(`${titulo} .`);
     }
 
-    let nomeAbrev = '';
+    let nomesAutoresFormatados = '';
     if (autor.length > 0) {
       setCitacao('');
-      const namesAutor = autor.split(' ');
-      const lastName = `${namesAutor[namesAutor.length - 1].toUpperCase()}, `;
-
-      let initials = '';
-      for (let i = 0; i < namesAutor.length - 1; i++) {
-        const name = namesAutor[i];
-        const initialName = name[0];
-        initials = `${initials + initialName.toUpperCase()}. `;
+      if (autor.includes('&')) {
+        const autores = autor.split('&');
+        for (let i = 0; i < autores.length; i++) {
+          const nomesAutor = autores[i].trim().split(' ');
+          const sobrenomeAutor = `${nomesAutor[
+            nomesAutor.length - 1
+          ].toUpperCase()},`;
+          let inicias = '';
+          for (let j = 0; j < nomesAutor.length - 1; j++) {
+            const nome = nomesAutor[j];
+            const primeiraLetraNome = nome[0];
+            inicias = `${inicias + primeiraLetraNome.toUpperCase()}. `;
+          }
+          inicias = `${inicias.trim()} &`;
+          nomesAutoresFormatados = `${nomesAutoresFormatados} ${sobrenomeAutor} ${inicias}`;
+        }
+        nomesAutoresFormatados = nomesAutoresFormatados.trim().slice(0, -1);
+      } else {
+        let inicias = '';
+        const nomesAutor = autor.trim().split(' ');
+        const sobrenomeAutor = `${nomesAutor[
+          nomesAutor.length - 1
+        ].toUpperCase()}, `;
+        for (let j = 0; j < nomesAutor.length - 1; j++) {
+          const nome = nomesAutor[j];
+          const primeiraLetraNome = nome[0];
+          inicias = `${inicias + primeiraLetraNome.toUpperCase()}. `;
+        }
+        nomesAutoresFormatados =
+          nomesAutoresFormatados + sobrenomeAutor + inicias;
       }
-      nomeAbrev = lastName + initials;
-      setCitacao(`${nomeAbrev + titulo}`);
+      setCitacao(`${nomesAutoresFormatados + titulo}`);
     }
 
     if (ano.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${ano}.`);
+      setCitacao(`${nomesAutoresFormatados + titulo}. ${ano}.`);
     }
 
     if (localizacao.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${localizacao}: ${ano}.`);
+      setCitacao(`${nomesAutoresFormatados + titulo}. ${localizacao}: ${ano}.`);
     }
 
     if (editora.length > 0) {
       setCitacao('');
-      setCitacao(`${nomeAbrev + titulo}. ${localizacao}: ${editora}, ${ano}.`);
+      setCitacao(
+        `${
+          nomesAutoresFormatados + titulo
+        }. ${localizacao}: ${editora}, ${ano}.`
+      );
     }
   }
 
