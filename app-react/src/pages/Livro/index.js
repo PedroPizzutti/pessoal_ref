@@ -204,6 +204,7 @@ export default function Livro({ match }) {
         <label htmlFor="titulo">
           Título
           <input
+            placeholder="Insira o título do livro"
             type="text"
             value={titulo}
             onChange={(e) => setTitulo(e.target.value)}
@@ -214,6 +215,7 @@ export default function Livro({ match }) {
         <label htmlFor="autor">
           Autor(a)
           <input
+            placeholder='Em caso de mais de um(a) autor(a), separe utilizando "&" '
             type="text"
             value={autor}
             onChange={(e) => setAutor(e.target.value)}
@@ -223,6 +225,7 @@ export default function Livro({ match }) {
         <label htmlFor="ano">
           Ano
           <input
+            placeholder="Insira o ano de publicação do livro"
             type="number"
             value={ano}
             onChange={(e) => setAno(e.target.value)}
@@ -232,6 +235,7 @@ export default function Livro({ match }) {
         <label htmlFor="localizacao">
           Localização da publicação
           <input
+            placeholder="Insira o local de publicação do livro"
             type="text"
             value={localizacao}
             onChange={(e) => setLocalizacao(e.target.value)}
@@ -241,6 +245,7 @@ export default function Livro({ match }) {
         <label htmlFor="editora">
           Editora
           <input
+            placeholder="Insira a editora que publicou o livro"
             type="text"
             value={editora}
             onChange={(e) => setEditora(e.target.value)}
@@ -250,6 +255,7 @@ export default function Livro({ match }) {
         <label htmlFor="citacao">
           Referência
           <input
+            placeholder="A referência é gerada automaticamente em padrão ABNT"
             type="text"
             value={citacao}
             onChange={(e) => setCitacao(e.target.value)}
